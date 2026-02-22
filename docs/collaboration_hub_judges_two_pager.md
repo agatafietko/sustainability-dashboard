@@ -52,7 +52,7 @@ Researcher_Profiles_For_PowerBI.csv
    ↓
 generate_ccs_demo_data.py
    ↓
-data/CCS_Demo_Data.csv
+CCS_Demo_Data.csv (available upon request)
 ```
 
 **Directly used fields**

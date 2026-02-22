@@ -248,7 +248,7 @@ Researcher_Profiles_For_PowerBI.csv
     ↓
 [generate_ccs_demo_data.py]
     ↓
-data/CCS_Demo_Data.csv (for Power BI visualization)
+CCS_Demo_Data.csv (demo file available upon request)
 ```
 
 ### Data Transformations
@@ -349,7 +349,7 @@ This repo includes **demo data** designed to illustrate how the collaboration sc
 - All scores (Topic/Method/Career/CCS) are calculated by the algorithm
 - Explanations are generated from keywords + scoring logic
 
-**Important note:** The CCS score is **directional and explainable**, not a predictive model of collaboration success.
+**Important note:** The CCS score is **directional and explainable**, not a predictive model of collaboration success. Demo data is available upon request.
 
 ---
 
@@ -363,7 +363,7 @@ Raw publication data → researcher profiles → CCS demo matches:
 
 2. `generate_ccs_demo_data.py`  
    Input: `Researcher_Profiles_For_PowerBI.csv`  
-   Output: `data/CCS_Demo_Data.csv`
+   Output: `CCS_Demo_Data.csv` (available upon request)
 
 See `docs/methodology/CCS_DEMO_DATA_EXPLANATION.md` and
 `docs/methodology/SDG_MATCHING_EXPLANATION.md` for the full logic used to
@@ -513,7 +513,7 @@ sustainability_case_competition/
 ├── requirements.txt                   # Python dependencies
 ├── .gitignore                         # Git ignore rules
 ├── data/                              # Demo data for Power BI
-│   └── CCS_Demo_Data.csv
+│   └── (available upon request)
 ├── docs/                              # Project documentation
 │   ├── 01_problem_statement.md
 │   ├── 02_stakeholder_analysis.md

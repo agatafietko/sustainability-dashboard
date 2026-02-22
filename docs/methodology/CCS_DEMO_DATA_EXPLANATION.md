@@ -5,7 +5,7 @@
 
 ## 📊 **OVERVIEW**
 
-The `data/CCS_Demo_Data.csv` file contains **simulated collaboration matches**
+The `CCS_Demo_Data.csv` file contains **simulated collaboration matches**
 for demonstration purposes in your Power BI presentation. It shows how the
 Collaboration Compatibility Score (CCS) algorithm would work when researchers
 search for potential collaborators. The demo file was generated using the
@@ -30,7 +30,7 @@ data/CCS_Demo_Data.csv (simulated user searches + matches)
 
 ---
 
-## 📁 **WHAT'S IN DATA/CCS_DEMO_DATA.CSV**
+## 📁 **WHAT'S IN CCS_DEMO_DATA.CSV**
 
 ### **Structure:** 46 rows of collaboration matches
 
@@ -275,8 +275,8 @@ career_stage="Post-Tenure" (calculated: 2025-2012=13 years)
 top_keywords="Gene Regulatory Network;Mixing Coefficient;Artificial Intelligence;..."
 ```
 
-### **data/CCS_Demo_Data.csv:**
-### **data/CCS_Demo_Data.csv:**
+### **CCS_Demo_Data.csv:**
+### **CCS_Demo_Data.csv:**
 ```
 User_Name="Ahsen, Mehmet" (or Match_Name)
 User_Dept="Business Administration" (or Match_Dept)
@@ -295,7 +295,7 @@ Explanation="Expertise in Gene Regulatory Network and Mixing Coefficient.
 
 ## ✅ **SUMMARY**
 
-**data/CCS_Demo_Data.csv uses:**
+**CCS_Demo_Data.csv uses:**
 - ✅ **Real researcher names** from your original CSV
 - ✅ **Real departments** from your original CSV
 - ✅ **Real SDGs** (aggregated from `top 1/2/3` columns)
@@ -303,7 +303,7 @@ Explanation="Expertise in Gene Regulatory Network and Mixing Coefficient.
 - ✅ **Real career stages** (calculated from `publication_year`)
 - ✅ **Real keywords** (for explanations)
 
-**data/CCS_Demo_Data.csv calculates:**
+**CCS_Demo_Data.csv calculates:**
 - 🧮 **Compatibility scores** (Topic_Match, Method_Match, Career_Fit, CCS_Total)
 - 🧮 **Explanations** (generated text using real keywords)
 
