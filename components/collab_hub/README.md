@@ -116,10 +116,16 @@ Every match includes:
 
 ## 📖 Documentation
 
+### Core Documentation
 - **`docs/methodology.md`** - Complete step-by-step methodology
+- **`docs/BUSINESS_LOGIC_AND_DECISIONS.md`** - Business rationale for weights, decisions, and design choices
+- **`docs/DATA_TRANSFORMATION_GUIDE.md`** - Step-by-step data transformation from CSV to matches
 - **`docs/limitations.md`** - Known limitations and future work
 - **`docs/judge_qa.md`** - Answers to common judge questions
+
+### Technical Documentation
 - **`scripts/README.md`** - Script documentation and usage
+- **`scripts/SCRIPT_LOGIC_EXPLANATION.md`** - Detailed code logic and design decisions
 
 ---
 
