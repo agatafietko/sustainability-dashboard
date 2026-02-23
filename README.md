@@ -2,10 +2,6 @@
 
 > **An AI-powered decision-support platform for discovering sustainability research expertise and facilitating interdisciplinary collaboration across university departments.**
 
-[![Case Competition](https://img.shields.io/badge/Case%20Competition-Finalist-blue)]()
-[![Platform](https://img.shields.io/badge/Platform-5%20Components-green)]()
-[![Documentation](https://img.shields.io/badge/Documentation-Complete-brightgreen)]()
-
 ---
 
 ## 🎯 Quick Overview
@@ -26,7 +22,7 @@ The **Illinois Sustainability Impact Engine** is a comprehensive platform that t
 - [Problem Statement](#-problem-statement)
 - [Solution Architecture](#-solution-architecture)
 - [Platform Components](#-platform-components)
-  - [Collaboration Hub](#collaboration-hub) ⭐ *Fully Documented*
+- [Collaboration Hub](#collaboration-hub) 
 - [Getting Started](#-getting-started)
 - [Technical Implementation](#-technical-implementation)
 - [Data & Methodology](#-data--methodology)
@@ -62,7 +58,7 @@ The platform consists of **5 integrated components** working together to address
 │                                                               │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
 │  │ Sustainability│  │   Research   │  │ Collaboration│     │
-│  │   Dashboard   │  │   Coverage   │  │     Hub      │ ⭐  │
+│  │   Dashboard   │  │   Coverage   │  │     Hub      │     │
 │  └──────────────┘  └──────────────┘  └──────────────┘     │
 │                                                               │
 │  ┌──────────────┐  ┌──────────────┐                         │
@@ -99,7 +95,7 @@ The platform consists of **5 integrated components** working together to address
 
 ---
 
-### 3. Collaboration Hub ⭐ **Fully Documented**
+### 3. Collaboration Hub 
 
 **AI-powered researcher matching system** that recommends collaborators based on:
 - **Topic alignment** (SDG + keyword overlap) - 50% weight
@@ -330,15 +326,6 @@ sustainability_case_competition/
 ## 📚 Documentation
 
 ### Main Documentation
-
-Comprehensive documentation is available in component-specific folders:
-
-- 📄 **Problem Statement** - Detailed problem analysis
-- 👥 **Stakeholder Analysis** - User personas and needs
-- 🏗️ **Solution Architecture** - System design and components
-- 📊 **Scoring Logic & Metrics** - Algorithm details
-- 💡 **Insights & Impact** - Key findings and value proposition
-- 🔮 **Limitations & Future Work** - Roadmap and enhancements
 
 ### Collaboration Hub Documentation ⭐
 
