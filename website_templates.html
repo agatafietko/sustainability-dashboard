@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIES Research Collaboration Platform - Join Us!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: #13294B;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .join-us-hero {
+            background: linear-gradient(135deg, #13294B 0%, #FF6B35 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .join-us-hero h1 {
+            font-size: 56px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .subheadline {
+            font-size: 22px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 15px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #FF6B35;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #13294B;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 20px;
+            background: #f5f5f5;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #13294B;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .step {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: #FF6B35;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            color: #13294B;
+            margin-bottom: 10px;
+        }
+
+        /* Survey Section */
+        .survey-section {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .survey-section h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #13294B;
+        }
+
+        .survey-section p {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: #666;
+        }
+
+        .survey-embed {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .survey-embed iframe {
+            width: 100%;
+            min-height: 800px;
+            border: none;
+        }
+
+        /* Opportunities Section */
+        .opportunities-section {
+            padding: 80px 20px;
+            background: #f5f5f5;
+        }
+
+        .opportunities-section h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #13294B;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filters input,
+        .filters select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .opportunities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .opportunity-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .opportunity-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .sdg-badges {
+            margin-bottom: 15px;
+        }
+
+        .sdg-badge {
+            display: inline-block;
+            background: #13294B;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .opportunity-card h3 {
+            color: #13294B;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .researcher {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .keywords {
+            margin-bottom: 15px;
+        }
+
+        .keyword-tag {
+            display: inline-block;
+            background: #f5f5f5;
+            color: #333;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .match-score {
+            color: #FF6B35;
+            font-weight: bold;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-learn-more,
+        .btn-contact {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        .btn-learn-more {
+            background: #13294B;
+            color: white;
+        }
+
+        .btn-contact {
+            background: #FF6B35;
+            color: white;
+        }
+
+        .btn-learn-more:hover,
+        .btn-contact:hover {
+            opacity: 0.9;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .stats-section h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #13294B;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #13294B 0%, #1E3A8A 100%);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: #13294B;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .modal-content form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modal-content input,
+        .modal-content textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .modal-content textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .join-us-hero h1 {
+                font-size: 36px;
+            }
+
+            .subheadline {
+                font-size: 18px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">GIES Research</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#opportunities">Opportunities</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="join-us-hero">
+        <div class="container">
+            <h1>Find Your Research Match</h1>
+            <p class="subheadline">Connect with researchers working on sustainability challenges. Find projects that match your interests. Make an impact.</p>
+            <div class="cta-buttons">
+                <a href="#survey" class="btn-primary">Find Opportunities</a>
+                <a href="#researcher" class="btn-secondary">Join as Researcher</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Take Survey</h3>
+                    <p>Tell us about your research interests, SDG focus, and skills</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Get Matched</h3>
+                    <p>Our algorithm finds research opportunities that align with your profile</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Connect</h3>
+                    <p>Reach out to researchers and start collaborating on impactful projects</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Survey Section -->
+    <section id="survey" class="survey-section">
+        <div class="container">
+            <h2>Find Your Research Match</h2>
+            <p>Take our quick survey to discover research opportunities that align with your interests</p>
+            <div class="survey-embed">
+                <!-- Replace with your Google Form embed code -->
+                <iframe src="YOUR_GOOGLE_FORM_EMBED_URL_HERE" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Opportunities Section -->
+    <section id="opportunities" class="opportunities-section">
+        <div class="container">
+            <h2>Research Opportunities</h2>
+            
+            <!-- Filters -->
+            <div class="filters">
+                <input type="text" id="search" placeholder="Search opportunities...">
+                <select id="sdg-filter">
+                    <option value="">All SDGs</option>
+                    <option value="1">SDG 1: No Poverty</option>
+                    <option value="2">SDG 2: Zero Hunger</option>
+                    <option value="3">SDG 3: Good Health</option>
+                    <option value="4">SDG 4: Education</option>
+                    <option value="5">SDG 5: Gender Equality</option>
+                    <option value="6">SDG 6: Water & Sanitation</option>
+                    <option value="7">SDG 7: Clean Energy</option>
+                    <option value="8">SDG 8: Economic Growth</option>
+                    <option value="9">SDG 9: Innovation</option>
+                    <option value="10">SDG 10: Reduced Inequalities</option>
+                    <option value="11">SDG 11: Sustainable Cities</option>
+                    <option value="12">SDG 12: Responsible Consumption</option>
+                    <option value="13">SDG 13: Climate Action</option>
+                    <option value="14">SDG 14: Life Below Water</option>
+                    <option value="15">SDG 15: Life on Land</option>
+                    <option value="16">SDG 16: Peace & Justice</option>
+                    <option value="17">SDG 17: Partnerships</option>
+                </select>
+                <select id="dept-filter">
+                    <option value="">All Departments</option>
+                    <option value="Business Administration">Business Administration</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Accountancy">Accountancy</option>
+                    <option value="Gies Affiliates">Gies Affiliates</option>
+                </select>
+            </div>
+            
+            <!-- Opportunity Cards -->
+            <div class="opportunities-grid" id="opportunities-grid">
+                <!-- Cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <h2>Research Impact at a Glance</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-pubs">1,899</div>
+                    <div class="stat-label">Total Publications</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="sustainable-pubs">397</div>
+                    <div class="stat-label">Sustainable Research</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="sustainable-pct">21%</div>
+                    <div class="stat-label">Sustainable %</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="sdgs-covered">15</div>
+                    <div class="stat-label">SDGs Covered</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Contact Researcher</h2>
+            <form id="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <input type="text" name="role" placeholder="Your Role (Student/Faculty/etc.)" required>
+                <textarea name="message" placeholder="Why are you interested? What can you contribute?" required></textarea>
+                <button type="submit" class="btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 GIES Business School - University of Illinois</p>
+    </footer>
+
+    <script>
+        // Sample opportunities data (replace with your actual data from Power BI)
+        const opportunities = [
+            {
+                id: 1,
+                title: "AI for Cancer Diagnosis: Bias-Aware Classification",
+                researcher: "Dr. Mehmet Ahsen",
+                department: "Business Administration",
+                email: "ahsen@illinois.edu",
+                sdgs: [3],
+                keywords: ["AI", "Healthcare", "Machine Learning", "Breast Cancer"],
+                year: 2019,
+                matchScore: 85
+            },
+            {
+                id: 2,
+                title: "CEO Risk Preference and R&D Investment",
+                researcher: "Dr. A. Rashad Abdel-Khalik",
+                department: "Accountancy",
+                email: "rashad@illinois.edu",
+                sdgs: [8],
+                keywords: ["Finance", "Risk Management", "R&D", "Corporate Governance"],
+                year: 2014,
+                matchScore: null
+            },
+            {
+                id: 3,
+                title: "Fair Value Accounting and Stewardship",
+                researcher: "Dr. A. Rashad Abdel-Khalik",
+                department: "Accountancy",
+                email: "rashad@illinois.edu",
+                sdgs: [16],
+                keywords: ["Accounting", "Financial Reporting", "Stewardship"],
+                year: 2011,
+                matchScore: null
+            }
+            // Add more opportunities from your Power BI data
+        ];
+
+        // Create opportunity card HTML
+        function createOpportunityCard(opp) {
+            const sdgBadges = opp.sdgs.map(sdg => 
+                `<span class="sdg-badge">SDG ${sdg}</span>`
+            ).join('');
+            
+            const keywordTags = opp.keywords.map(kw => 
+                `<span class="keyword-tag">${kw}</span>`
+            ).join('');
+            
+            const matchScoreHtml = opp.matchScore ? 
+                `<span class="match-score">Match: ${opp.matchScore}%</span>` : '';
+            
+            return `
+                <div class="opportunity-card">
+                    <div class="sdg-badges">${sdgBadges}</div>
+                    <h3>${opp.title}</h3>
+                    <p class="researcher">${opp.researcher} • ${opp.department}</p>
+                    <div class="keywords">${keywordTags}</div>
+                    <div class="meta">
+                        <span>Year: ${opp.year}</span>
+                        ${matchScoreHtml}
+                    </div>
+                    <div class="actions">
+                        <button class="btn-learn-more" onclick="showDetails(${opp.id})">Learn More</button>
+                        <button class="btn-contact" onclick="openContactModal('${opp.researcher}', '${opp.email}')">Contact</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Display opportunities
+        function displayOpportunities(opps = opportunities) {
+            const grid = document.getElementById('opportunities-grid');
+            grid.innerHTML = opps.map(opp => createOpportunityCard(opp)).join('');
+        }
+
+        // Filter functionality
+        function filterOpportunities() {
+            const search = document.getElementById('search').value.toLowerCase();
+            const sdg = document.getElementById('sdg-filter').value;
+            const dept = document.getElementById('dept-filter').value;
+            
+            const filtered = opportunities.filter(opp => {
+                const matchesSearch = opp.title.toLowerCase().includes(search) ||
+                                     opp.researcher.toLowerCase().includes(search) ||
+                                     opp.keywords.some(kw => kw.toLowerCase().includes(search));
+                const matchesSDG = !sdg || opp.sdgs.includes(parseInt(sdg));
+                const matchesDept = !dept || opp.department === dept;
+                
+                return matchesSearch && matchesSDG && matchesDept;
+            });
+            
+            displayOpportunities(filtered);
+        }
+
+        // Event listeners
+        document.getElementById('search').addEventListener('input', filterOpportunities);
+        document.getElementById('sdg-filter').addEventListener('change', filterOpportunities);
+        document.getElementById('dept-filter').addEventListener('change', filterOpportunities);
+
+        // Contact modal
+        function openContactModal(researcherName, researcherEmail) {
+            const modal = document.getElementById('contact-modal');
+            modal.style.display = 'block';
+            // You can pre-fill researcher name/email if needed
+        }
+
+        document.querySelector('.close').addEventListener('click', function() {
+            document.getElementById('contact-modal').style.display = 'none';
+        });
+
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('contact-modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            // For demo: Just show alert
+            // In production: Send to backend/email service
+            alert(`Message sent to researcher! (Demo mode - configure email service)`);
+            document.getElementById('contact-modal').style.display = 'none';
+            e.target.reset();
+        });
+
+        // Show details (you can expand this)
+        function showDetails(id) {
+            const opp = opportunities.find(o => o.id === id);
+            alert(`Details for: ${opp.title}\n\nResearcher: ${opp.researcher}\nDepartment: ${opp.department}\nYear: ${opp.year}\n\nSDGs: ${opp.sdgs.join(', ')}\nKeywords: ${opp.keywords.join(', ')}`);
+        }
+
+        // Initialize
+        displayOpportunities();
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+

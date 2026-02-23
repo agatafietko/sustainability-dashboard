@@ -1,0 +1,195 @@
+==========================================
+POWER BI DAX MEASURES
+Copy and paste these into Power BI Desktop
+==========================================
+
+=== CORE METRICS ===
+
+Total Publications = 
+COUNTROWS(Publications)
+
+Sustainable Publications = 
+CALCULATE(
+    [Total Publications],
+    Publications[is_sustain] = TRUE()
+)
+
+Sustainable % = 
+DIVIDE(
+    [Sustainable Publications],
+    [Total Publications],
+    0
+)
+
+Recent Publications = 
+CALCULATE(
+    [Total Publications],
+    Publications[is_recent] = TRUE()
+)
+
+Recent Sustainable = 
+CALCULATE(
+    [Sustainable Publications],
+    Publications[is_recent] = TRUE()
+)
+
+Top Journal Publications = 
+CALCULATE(
+    [Total Publications],
+    Publications[is_top_journal] = TRUE()
+)
+
+=== SDG METRICS ===
+
+Publications by SDG = 
+VAR SelectedSDG = SELECTEDVALUE('sdg_lookup'[SDG ID])
+RETURN
+IF(
+    NOT ISBLANK(SelectedSDG),
+    CALCULATE(
+        [Total Publications],
+        FILTER(
+            'SDG_Mappings',
+            'SDG_Mappings'[SDG ID] = SelectedSDG
+        )
+    ),
+    BLANK()
+)
+
+Sustainable % by SDG = 
+VAR SelectedSDG = SELECTEDVALUE('sdg_lookup'[SDG ID])
+VAR TotalInSDG = 
+    CALCULATE(
+        [Total Publications],
+        FILTER(
+            'SDG_Mappings',
+            'SDG_Mappings'[SDG ID] = SelectedSDG
+        )
+    )
+VAR SustainInSDG = 
+    CALCULATE(
+        [Sustainable Publications],
+        FILTER(
+            'SDG_Mappings',
+            'SDG_Mappings'[SDG ID] = SelectedSDG
+        )
+    )
+RETURN
+DIVIDE(SustainInSDG, TotalInSDG, 0)
+
+=== DEPARTMENT METRICS ===
+
+Publications by Department = 
+CALCULATE(
+    [Total Publications],
+    ALLEXCEPT(Publications, Publications[department])
+)
+
+Sustainable by Department = 
+CALCULATE(
+    [Sustainable Publications],
+    ALLEXCEPT(Publications, Publications[department])
+)
+
+=== IMPACT STORY MEASURE ===
+
+Impact Story = 
+VAR Title = SELECTEDVALUE(Publications[title])
+VAR Author = SELECTEDVALUE(Publications[name])
+VAR Department = SELECTEDVALUE(Publications[department])
+VAR Year = SELECTEDVALUE(Publications[publication_year])
+VAR Journal = SELECTEDVALUE(Publications[journal_title])
+VAR DOI = SELECTEDVALUE(Publications[doi])
+VAR Abstract = SELECTEDVALUE(Publications[abstract_text])
+VAR IsSustainable = SELECTEDVALUE(Publications[is_sustain])
+
+VAR SDGList = 
+    IF(
+        IsSustainable,
+        CONCATENATEX(
+            DISTINCT(
+                FILTER(
+                    RELATEDTABLE('sdg_lookup'),
+                    RELATEDTABLE('SDG_Mappings')
+                )
+            ),
+            'sdg_lookup'[SDG Name],
+            ", "
+        ),
+        "N/A"
+    )
+
+RETURN
+IF(
+    HASONEVALUE(Publications[article_uuid]),
+    "📊 IMPACT STORY" & UNICHAR(10) & UNICHAR(10) &
+    "Title: " & Title & UNICHAR(10) & UNICHAR(10) &
+    "Author: " & Author & UNICHAR(10) &
+    "Department: " & Department & UNICHAR(10) &
+    "Year: " & Year & UNICHAR(10) & UNICHAR(10) &
+    IF(
+        IsSustainable,
+        "SDG Focus: " & SDGList & UNICHAR(10) & UNICHAR(10),
+        ""
+    ) &
+    IF(
+        NOT ISBLANK(Journal),
+        "Journal: " & Journal & UNICHAR(10) & UNICHAR(10),
+        ""
+    ) &
+    IF(
+        NOT ISBLANK(DOI),
+        "DOI: " & DOI & UNICHAR(10) & UNICHAR(10),
+        ""
+    ) &
+    "Why it matters:" & UNICHAR(10) &
+    IF(
+        LEN(Abstract) > 500,
+        LEFT(Abstract, 500) & "...",
+        Abstract
+    ),
+    "👆 Select a single publication from the table to view its Impact Story."
+)
+
+=== TREND METRICS ===
+
+Publications YoY Change = 
+VAR CurrentYear = SELECTEDVALUE(Publications[publication_year])
+VAR PreviousYear = CurrentYear - 1
+VAR CurrentCount = 
+    CALCULATE(
+        [Total Publications],
+        Publications[publication_year] = CurrentYear
+    )
+VAR PreviousCount = 
+    CALCULATE(
+        [Total Publications],
+        Publications[publication_year] = PreviousYear
+    )
+RETURN
+IF(
+    NOT ISBLANK(PreviousCount) && PreviousCount > 0,
+    DIVIDE(CurrentCount - PreviousCount, PreviousCount, 0),
+    BLANK()
+)
+
+=== KEYWORD METRICS ===
+
+Keyword Count = 
+COUNTROWS(Keywords)
+
+Top Keywords = 
+VAR TopKeywords = 
+    TOPN(
+        10,
+        VALUES(Keywords[keyword]),
+        [Keyword Count],
+        DESC
+    )
+RETURN
+CONCATENATEX(TopKeywords, Keywords[keyword], ", ")
+
+
+
+
+

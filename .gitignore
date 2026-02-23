@@ -1,0 +1,58 @@
+# Data files (sensitive - do not commit)
+*.csv
+*.xlsx
+*.xls
+*.pbix
+*.pbids
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Power BI
+*.pbix
+*.pbids
+
+# Large files
+*.zip
+*.tar.gz
+
+# Personal notes (if any)
+notes.txt
+TODO.txt
+
+# Keep these specific files (if they exist as examples)
+!sdg_lookup.csv
+!Keywords_cleaned.csv
+!SDG_Mappings_cleaned.csv
+!Publications_cleaned.csv
