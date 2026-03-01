@@ -6,13 +6,18 @@ The Collaboration Hub is one of 5 integrated components in the Sustainability Im
 
 ## 🎯 Quick Overview
 
-**What it does**: Converts publication metadata into researcher profiles, then scores pairwise compatibility to recommend collaboration opportunities.
+**What it does**: A Streamlit web application that analyzes original publication data using NLP to recommend research collaborators, opportunities, and funding priorities.
 
-**Key innovation**: Rewards **complementary methods** (e.g., Theoretical + Empirical) rather than just similarity.
+**Key innovation**: 
+- Uses **NLP semantic analysis** on actual keywords and abstracts from original CSV
+- Rewards **complementary methods** (e.g., Theoretical + Empirical) rather than just similarity
+- Three stakeholder paths: Faculty (CCS matching), Students (opportunities), Donors (funding gaps)
 
-**Output**: Power BI dashboard showing ranked matches with transparent explanations.
+**Output**: 
+- **Streamlit Web App**: Interactive matching with transparent scoring
+- **Power BI Dashboard**: Alternative visualization (optional)
 
-**Positioning**: **Supplementary tool** - A "nice-to-have" enhancement that adds compatibility scoring. The Sustainability Dashboard, Research Coverage Analysis, and Impact Engine work independently—the platform functions without the Hub, but it adds value when researchers want to find collaborators.
+**Data Source**: Uses original `for distribution case competition filtered_publications.csv` - builds profiles on-the-fly, no pre-processed data
 
 **Part of**: The Illinois Sustainability Impact Engine (along with Sustainability Dashboard, Research Coverage Analysis, Impact Engine, and AI Prototype)
 
@@ -45,112 +50,102 @@ components/collab_hub/
 
 ## 🚀 Quick Start
 
-### For Demo Dashboard (What Judges See)
+### Run Streamlit App (Recommended)
 
-1. **Generate demo data**:
+1. **Install dependencies**:
    ```bash
-   cd components/collab_hub/scripts
-   python generate_ccs_demo_data.py
+   cd components/collab_hub
+   pip install -r requirements.txt
    ```
-   This creates `CCS_Demo_Data.csv` in the parent directory.
 
-2. **Load into Power BI**:
-   - Open Power BI Desktop
-   - Get Data → Text/CSV
-   - Select `CCS_Demo_Data.csv`
-   - Build visuals (see `powerbi/README.md`)
-
-### For Full Pipeline (Optional)
-
-1. **Build researcher profiles and matches**:
+2. **Run the app**:
    ```bash
-   cd components/collab_hub/scripts
-   python build_collab_hub_from_scratch.py
+   streamlit run app.py
    ```
-   This requires the original publications CSV.
 
-2. **Load into Power BI**:
-   - Import `Collab_Matches_For_PowerBI.csv`
-   - Import `Researcher_Profiles_For_PowerBI.csv`
-   - Create relationships (see `powerbi/README.md`)
+3. **Access the app**:
+   - Opens automatically at `http://localhost:8501`
+   - Choose your path: Faculty, Student, or Donor
+
+### Deploy to Streamlit Cloud
+
+1. **Repository**: `https://github.com/meryemrafiq14-hue/sustainability_case_competition.git`
+2. **Main file path**: `components/collab_hub/app.py`
+3. See `DEPLOYMENT_GUIDE.md` for detailed instructions
+
+### Power BI Dashboard (Optional)
+
+For Power BI visualization, see `powerbi/README.md`
 
 ---
 
 ## 📊 How It Works
 
-### Step 1: Researcher Profile Construction
+### Data Source
+- **Original CSV**: `for distribution case competition filtered_publications.csv`
+- **Profile Construction**: Built on-the-fly from original publication records
+- **NLP Analysis**: Uses actual keywords and abstracts from original CSV
+- **No Pre-processing**: All analysis performed on original data
 
-From the publications CSV, we aggregate:
-- **Publication metrics**: Total count, sustainable count, years active
-- **Career stage**: Inferred from first publication year
-- **Top keywords**: Most frequent keywords across publications
-- **Primary SDG**: Most common SDG label
-- **Primary method**: Inferred from keywords/abstracts (Theoretical, Empirical, etc.)
+### Three Stakeholder Paths
 
-### Step 2: Compatibility Scoring
+#### 1. Faculty Path - Find a Collaborator
+- **CCS Formula**: `(Topic × 45%) + (Method × 40%) + (Career × 15%)`
+- **Topic Score (45%)**: NLP semantic similarity on actual keywords/abstracts
+- **Method Score (40%)**: Rewards complementarity (Theoretical + Empirical = 100)
+- **Career Score (15%)**: Mentorship opportunities (Pre-Tenure + Senior = 100)
+- **Output**: Top match with transparent breakdown
 
-Each researcher pair gets a score:
+#### 2. Student Path - Find Opportunities
+- **Opportunity Match Score**: Based on SDG interest, skills, and career fit
+- **Output**: Ranked research opportunities
 
-```
-CCS_Total = (Topic × 50%) + (Method × 35%) + (Career × 15%)
-```
-
-**Topic Score (50%)**:
-- SDG alignment (70% of topic score)
-- Keyword overlap (30% of topic score)
-
-**Method Score (35%)**:
-- **Rewards complementary methods**: Theoretical + Empirical = 100
-- **Penalizes same methods**: Theoretical + Theoretical = 25
-
-**Career Score (15%)**:
-- Mentorship pairs (Pre-Tenure + Senior) = 100
-- Peer collaboration (same stage) = 60-75
-
-### Step 3: Explainability
-
-Every match includes:
-- Total score and sub-scores
-- Natural language explanation
-- Method complementarity indicator
+#### 3. Donor Path - Sponsor a Priority
+- **SDG Coverage Analysis**: Interactive chart showing research coverage
+- **Gap Identification**: Highlights under-researched SDGs
+- **Output**: Priority funding areas
 
 ---
 
 ## 📖 Documentation
 
-- **`docs/END_TO_END_PIPELINE.md`** - Complete data journey from original CSV to Power BI
-- **`docs/VALUE_PROPOSITION_AND_POSITIONING.md`** - Value proposition and positioning
+### Essential Reading
+- **`STREAMLIT_DEPLOYMENT.md`** ⭐ - Quick deployment guide with GitHub repo link
+- **`DEPLOYMENT_GUIDE.md`** - Detailed Streamlit Cloud deployment instructions
+- **`docs/END_TO_END_PIPELINE.md`** - Complete data journey from original CSV to Streamlit app
 - **`docs/QUICK_START_FOR_JUDGES.md`** - Quick overview for judges
+
+### Detailed Documentation
 - **`docs/methodology.md`** - Step-by-step methodology
 - **`docs/BUSINESS_LOGIC_AND_DECISIONS.md`** - Business rationale for weights and decisions
-- **`docs/DATA_TRANSFORMATION_GUIDE.md`** - Data transformation from CSV to matches
-- **`docs/limitations.md`** - Known limitations and future work
 - **`docs/judge_qa.md`** - Answers to common judge questions
+- **`docs/limitations.md`** - Known limitations and future work
 
 ### Technical Documentation
-- **`scripts/README.md`** - Script documentation and usage
-- **`scripts/SCRIPT_LOGIC_EXPLANATION.md`** - Detailed code logic and design decisions
+- **`scripts/README.md`** - Script documentation (for batch processing, optional)
+- **`app.py`** - Main Streamlit application (commented code)
 
 ---
 
 ## ⚠️ Important Notes
 
-### Demo Data vs. Real Data
+### Data Source
 
-- **Demo dashboard** uses `CCS_Demo_Data.csv` (synthetic, for presentation)
-- **Full pipeline** uses `Collab_Matches_For_PowerBI.csv` (from real publications)
-
-The demo data includes small randomized variation to show diverse examples clearly. It's a **proof of concept**, not a predictive model.
+- **Streamlit App**: Uses original `for distribution case competition filtered_publications.csv`
+- **Profile Construction**: Built on-the-fly from original publication records
+- **NLP Analysis**: Performed on actual keywords and abstracts from original CSV
+- **No Pre-processing**: All analysis uses original data directly
+- **No Simulation**: All matching uses real data from original CSV
 
 ### Data Confidentiality
 
-- Raw publication data is **not** included in this repo
-- Only derived outputs and documentation are shared
-- See `data/README.md` for data policy
+- Original CSV file is **not** included in this public repo
+- App expects CSV to be in repository root or accessible path
+- See `DATA_POLICY.md` in root directory for data policy
 
 ### Transparency
 
-This is a **rule-based system**, not predictive AI. Every score is explainable and transparent.
+This is a **rule-based system with NLP**, not predictive AI. Every score is explainable and transparent. The NLP component uses semantic similarity on actual research content from the original CSV.
 
 ---
 

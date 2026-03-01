@@ -202,16 +202,17 @@ Moderate scores for different but not explicitly complementary:
    - Network edges for visualization
    - Only high-quality matches (score ≥ 70)
 
-### Demo Data Generation
+### Streamlit App - Real-Time Analysis
 
-**`CCS_Demo_Data.csv`** is created separately for presentation:
+**The Streamlit app** (`app.py`) performs all analysis in real-time:
 
-1. Selects 15 diverse researchers (mix of career stages)
-2. Generates 2-3 matches per researcher
-3. **Adds small randomized variation** to SDG/method inputs to show diverse scenarios
-4. Uses same scoring formula as main pipeline
+1. Loads original CSV directly
+2. Builds researcher profiles on-the-fly (cached for performance)
+3. Performs NLP semantic matching on actual keywords and abstracts
+4. Calculates compatibility scores when user submits form
+5. Displays top matches with transparent breakdown
 
-**Important**: Demo data is **synthetic** (with randomization) for presentation clarity. It's not a predictive model.
+**Important**: All analysis uses **100% original data** - no pre-processing, no simulation. NLP is performed on actual research content from the original CSV.
 
 ---
 

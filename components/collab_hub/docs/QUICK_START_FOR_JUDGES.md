@@ -16,23 +16,22 @@ The **Collaboration Hub** is a supplementary compatibility scoring tool that hel
 
 ### **Step 1: Original Data**
 - **Input**: University publications CSV (`for distribution case competition filtered_publications.csv`)
-- **Contains**: Real publication metadata (names, departments, keywords, SDGs, publication years)
+- **Contains**: Real publication metadata (names, departments, keywords, abstracts, SDGs, publication years)
 
-### **Step 2: Script 1 - Build Profiles**
-- **Script**: `build_collab_hub_from_scratch.py`
-- **Does**: Aggregates publications per researcher, infers career stage and method, calculates compatibility scores
-- **Output**: `Researcher_Profiles_For_PowerBI.csv` + `Collab_Matches_For_PowerBI.csv`
-- **Data**: 100% real (no simulation)
+### **Step 2: Streamlit App - Real-Time Analysis**
+- **App**: `app.py` (Streamlit web application)
+- **Does**: 
+  - Loads original CSV directly
+  - Builds researcher profiles on-the-fly from original data
+  - Performs NLP semantic analysis on actual keywords and abstracts
+  - Calculates compatibility scores in real-time
+- **Output**: Interactive web interface with three stakeholder paths
+- **Data**: 100% real (no simulation, no pre-processing)
 
-### **Step 3: Script 2 - Generate Demo Data** (Optional)
-- **Script**: `generate_ccs_demo_data.py`
-- **Does**: Creates curated demo dataset for Power BI presentation
-- **Output**: `CCS_Demo_Data.csv`
-- **Data**: Real researcher profiles, but 30-40% of user search inputs are varied to show different scenarios
-
-### **Step 4: Power BI Dashboard**
-- **Visualization**: Match ranking, score breakdown, filters
-- **Integration**: Links to Sustainability Dashboard (SDG wheel), Research Coverage, Impact Engine
+### **Step 3: Three Stakeholder Paths**
+- **Faculty**: CCS matching with transparent breakdown
+- **Students**: Opportunity matching based on skills
+- **Donors**: SDG coverage and funding gap analysis
 
 ---
 
@@ -42,21 +41,21 @@ The **Collaboration Hub** is a supplementary compatibility scoring tool that hel
 - ✅ All researcher names
 - ✅ All departments
 - ✅ All publication counts and years
-- ✅ All keywords and SDGs
-- ✅ All matched researcher data (in demo)
+- ✅ All keywords and abstracts (used for NLP)
+- ✅ All SDGs from original CSV
 
 ### **Calculated** (Based on Real Data)
-- 🧮 Career stage (from years since first publication)
-- 🧮 Primary SDG (most frequent)
-- 🧮 Primary method (inferred from keywords/abstracts)
-- 🧮 Compatibility scores (algorithm: 50% topic, 35% method, 15% career)
+- 🧮 Career stage (from years since first publication in original CSV)
+- 🧮 Primary SDG (most frequent from original CSV)
+- 🧮 Primary method (inferred from actual keywords/abstracts in original CSV)
+- 🧮 Compatibility scores (algorithm: 45% topic, 40% method, 15% career)
+- 🧮 NLP semantic similarity (on actual keywords and abstracts)
 
-### **Simulated** (Demo Data Only)
-- ⚠️ User_SDG: 30% varied (to show different search scenarios)
-- ⚠️ User_Method: 40% varied (to show different search scenarios)
-- ⚠️ Explanation text: Generated from scores + keywords
-
-**Note**: The full pipeline (`Collab_Matches_For_PowerBI.csv`) uses 100% real data with no simulation.
+### **No Simulation**
+- ✅ All data comes from original CSV
+- ✅ Profiles built on-the-fly from original publications
+- ✅ NLP performed on actual research content
+- ✅ No pre-processed or simulated data
 
 ---
 

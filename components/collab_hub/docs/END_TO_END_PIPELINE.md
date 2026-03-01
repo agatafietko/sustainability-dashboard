@@ -125,74 +125,47 @@
 
 ---
 
-## 📋 **What Each Script Does**
+## 📋 **How the Streamlit App Works**
 
-### **Script 1: `build_collab_hub_from_scratch.py`**
+### **App: `app.py`**
 
-**Purpose**: Core pipeline that transforms raw publications into researcher profiles and compatibility scores.
+**Purpose**: Interactive web application that analyzes original publication data in real-time using NLP.
 
 **Input**: 
 - `for distribution case competition filtered_publications.csv` (original university data)
 
 **Process**:
-1. **Data Cleaning** (Lines 23-39)
-   - Validates publication years
-   - Cleans SDG columns
-   - Converts data types
+1. **Load Original CSV** (`load_original_publications`)
+   - Loads original CSV directly from repository
+   - Validates and cleans data
+   - Caches for performance
 
-2. **Profile Construction** (Lines 42-159)
+2. **Build Profiles On-the-Fly** (`build_researcher_profiles_from_original`)
    - Groups publications by `person_uuid`
-   - Aggregates metrics (total pubs, years active, etc.)
-   - Infers career stage from publication history
-   - Infers research method from keywords/abstracts
+   - Aggregates metrics from original data
+   - Infers career stage from publication years
+   - Infers research method from actual keywords/abstracts
    - Aggregates SDGs and keywords
+   - **Uses actual abstracts for NLP matching**
 
-3. **Compatibility Scoring** (Lines 164-280)
-   - Calculates pairwise compatibility for all researcher pairs
-   - Applies scoring formula (50/35/15 weights)
-   - Generates explanations
+3. **Real-Time Matching** (when user submits form)
+   - Filters researchers by user criteria
+   - **NLP Topic Score**: Semantic similarity on actual keywords and abstracts
+   - **Method Score**: Complementarity rules (40%)
+   - **Career Score**: Mentorship fit (15%)
+   - Calculates CCS: `(Topic × 45%) + (Method × 40%) + (Career × 15%)`
+   - Displays top 3 matches with transparent breakdown
 
 **Output**:
-- `Researcher_Profiles_For_PowerBI.csv` - One row per researcher
-- `Collab_Matches_For_PowerBI.csv` - All pairwise matches with scores
+- Interactive web interface
+- Real-time matching results
+- Transparent score explanations
 
-**Key Point**: This script uses **100% real data** from the original CSV. No simulation.
+**Key Point**: Uses **100% original data** - no pre-processing, no simulation. NLP performed on actual keywords and abstracts from original CSV.
 
 ---
 
-### **Script 2: `generate_ccs_demo_data.py`**
-
-**Purpose**: Creates a curated demo dataset for Power BI presentation.
-
-**Input**: 
-- `Researcher_Profiles_For_PowerBI.csv` (from Script 1)
-
-**Process**:
-1. **Filter Top Researchers** (Lines 25-69)
-   - Selects researchers with ≥5 publications
-   - Ensures variety across career stages
-   - Selects 15 "user" researchers
-
-2. **Generate Matches** (Lines 200-280)
-   - For each user, finds potential matches
-   - **70% use actual primary_sdg** for user, **30% vary** (to show different scenarios)
-   - **60% use actual primary_method** for user, **40% vary**
-   - **100% use actual career_stage** for user
-   - **100% use actual data** for all matched researchers
-   - Calculates scores using same algorithm as Script 1
-
-3. **Generate Explanations** (Lines 161-195)
-   - Uses real keywords from matched researcher
-   - Generates text based on calculated scores
-
-**Output**:
-- `CCS_Demo_Data.csv` - ~46 curated matches for presentation
-
-**Key Point**: Demo data uses **real researcher profiles** but varies some user inputs to show diverse scenarios. All matched researcher data is real.
-
----
-
-## 🔍 **What's Real vs. Simulated**
+## 🔍 **What's Real vs. Calculated**
 
 ### ✅ **100% Real (From Original CSV)**
 
@@ -202,9 +175,9 @@
 | Departments | `department` column | All outputs |
 | Publication counts | Aggregated from rows | Researcher profiles |
 | Publication years | `publication_year` column | Career stage calculation |
-| Keywords | `keywords` column | Profile aggregation, explanations |
+| Keywords | `keywords` column | Profile aggregation, NLP matching |
+| Abstracts | `abstract` column | NLP semantic matching, method inference |
 | SDGs | `top 1`, `top 2`, `top 3` columns | Profile aggregation, scoring |
-| Abstracts | `abstract` or `abstract_text` | Method inference |
 
 ### 🧮 **Calculated/Inferred (Based on Real Data)**
 
@@ -213,56 +186,49 @@
 | Career stage | Years since first publication | Scoring, profiles |
 | Primary SDG | Most frequent SDG across publications | Scoring, profiles |
 | Primary method | Keyword matching in abstracts/keywords | Scoring, profiles |
-| Top keywords | Frequency ranking | Explanations |
-| Compatibility scores | Algorithm (50/35/15 formula) | All outputs |
+| Top keywords | Frequency ranking | NLP matching, explanations |
+| NLP embeddings | Sentence transformers on actual keywords/abstracts | Topic score (45%) |
+| Compatibility scores | Algorithm (45/40/15 formula) | All outputs |
 
-### ⚠️ **Simulated (Only in Demo Data)**
+### ✅ **No Simulation**
 
-| Data Element | Why Simulated | Used In |
-|--------------|---------------|---------|
-| User_SDG (30% varied) | Show different search scenarios | Demo data only |
-| User_Method (40% varied) | Show different search scenarios | Demo data only |
-| Explanation text | Generated from scores + keywords | Demo data only |
-
-**Important**: The full pipeline (`Collab_Matches_For_PowerBI.csv`) uses **100% real data** with no simulation.
+- All data comes from original CSV
+- Profiles built on-the-fly from original publications
+- NLP performed on actual research content
+- No pre-processed or simulated data
 
 ---
 
-## 🎨 **Power BI MVP Setup**
+## 🎨 **Streamlit App Interface**
 
-### **Data Connection**
+### **Three Stakeholder Paths**
 
-1. **For Demo Dashboard** (recommended for presentation):
-   - Connect to `CCS_Demo_Data.csv`
-   - Shows curated examples with clear explanations
+1. **Faculty Path - Find a Collaborator**
+   - Wizard questionnaire (SDG, Department, Method, Career Stage)
+   - Real-time CCS calculation using NLP on original data
+   - Top match displayed prominently with score
+   - Transparent breakdown (Topic/Method/Career scores)
+   - Other strong matches listed below
 
-2. **For Full Dashboard** (production):
-   - Connect to `Collab_Matches_For_PowerBI.csv`
-   - Shows all possible matches
+2. **Student Path - Find Opportunities**
+   - Skills and SDG interest questionnaire
+   - Opportunity Match Score calculation
+   - Ranked research opportunities board
+   - Contact information for each opportunity
 
-### **Key Visualizations**
+3. **Donor Path - Sponsor a Priority**
+   - Interactive SDG coverage chart (Plotly)
+   - Funding gap identification
+   - Priority areas table
+   - Leading researchers by SDG
 
-1. **Match Ranking Table**
-   - Sortable by CCS_Total
-   - Shows: User Name, Match Name, Scores, Explanation
-   - Filters: Department, SDG, Method, Career Stage
+### **Key Features**
 
-2. **Score Breakdown**
-   - Bar chart: Topic, Method, Career scores
-   - Shows why each match scored as it did
-
-3. **Integration Points**
-   - **Sustainability Dashboard**: Click SDG → see research coverage
-   - **Research Coverage**: Click gap → see potential collaborators
-   - **Impact Engine**: See collaboration outcomes
-
-### **DAX Measures** (if needed)
-
-See `DAX_Measures.txt` for calculated fields like:
-- `Total Publications`
-- `Sustainable Publications %`
-- `Publications by SDG`
-- `Impact Story`
+- **Real-time Analysis**: All matching performed on-the-fly from original CSV
+- **NLP Semantic Matching**: Uses actual keywords and abstracts from original data
+- **Transparent Scoring**: Full breakdown of CCS formula (45/40/15)
+- **No Pre-processing**: Works directly with original CSV
+- **Cached Performance**: Profiles built once, then cached for speed
 
 ---
 
