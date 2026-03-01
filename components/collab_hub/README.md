@@ -118,12 +118,12 @@ Every match includes:
 
 ## 📖 Documentation
 
-### Core Documentation
-### Documentation
-
-- **`docs/methodology.md`** - Complete step-by-step methodology
-- **`docs/BUSINESS_LOGIC_AND_DECISIONS.md`** - Business rationale for weights, decisions, and design choices
-- **`docs/DATA_TRANSFORMATION_GUIDE.md`** - Step-by-step data transformation from CSV to matches
+- **`docs/END_TO_END_PIPELINE.md`** - Complete data journey from original CSV to Power BI
+- **`docs/VALUE_PROPOSITION_AND_POSITIONING.md`** - Value proposition and positioning
+- **`docs/QUICK_START_FOR_JUDGES.md`** - Quick overview for judges
+- **`docs/methodology.md`** - Step-by-step methodology
+- **`docs/BUSINESS_LOGIC_AND_DECISIONS.md`** - Business rationale for weights and decisions
+- **`docs/DATA_TRANSFORMATION_GUIDE.md`** - Data transformation from CSV to matches
 - **`docs/limitations.md`** - Known limitations and future work
 - **`docs/judge_qa.md`** - Answers to common judge questions
 
