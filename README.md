@@ -107,7 +107,7 @@ The platform consists of **5 integrated components** working together to address
 
 #### Scoring Formula
 ```
-CCS_Total = (Topic × 50%) + (Method × 35%) + (Career × 15%)
+CCS_Total = (Topic × 45%) + (Method × 40%) + (Career × 15%)
 ```
 
 #### Features
@@ -214,28 +214,24 @@ Component-Specific Processing
 Power BI Dashboards
 ```
 
-### Collaboration Hub Pipeline (Detailed)
+### Collaboration Hub Pipeline
 
 ```
-Publications CSV
+Publications CSV (publications.csv)
     ↓
-build_collab_hub_from_scratch.py
-    ├── Extract researcher profiles
-    ├── Infer career stages
-    ├── Identify primary methods
-    └── Calculate SDG alignment
+Streamlit App (app.py)
+    ├── Load original CSV
+    ├── Build researcher profiles on-the-fly
+    ├── Perform NLP semantic analysis
+    └── Calculate compatibility scores in real-time
     ↓
-Researcher_Profiles_For_PowerBI.csv
-    ↓
-generate_ccs_demo_data.py (for demo)
-    ├── Select diverse researchers
-    ├── Generate matches
-    └── Calculate compatibility scores
-    ↓
-Streamlit App → Interactive matching interface
+Interactive Web Interface
+    ├── Faculty Path: CCS matching
+    ├── Student Path: Opportunity matching
+    └── Donor Path: SDG coverage analysis
 ```
 
-**See `components/collab_hub/scripts/README.md`** for detailed script documentation.
+**See `components/collab_hub/README.md`** for detailed documentation.
 
 ---
 
