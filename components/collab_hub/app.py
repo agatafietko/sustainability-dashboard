@@ -45,26 +45,35 @@ def load_original_publications_from_path(csv_path):
 def load_original_publications():
     """Load the original publications CSV file - tries repository paths first"""
     try:
+        # Get the directory where this script is located
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        repo_root = os.path.abspath(os.path.join(script_dir, '../..'))
+        
         # Try multiple possible paths for the original CSV
         # Priority: repository root (for Streamlit Cloud), then relative paths (for local dev)
         possible_paths = [
-            # Repository root (Streamlit Cloud and local)
-            '../../for distribution case competition filtered_publications.csv',
-            # Streamlit Cloud absolute paths
+            # Streamlit Cloud absolute paths (most reliable)
             '/mount/src/sustainability_case_competition/for distribution case competition filtered_publications.csv',
-            # Local relative paths
+            # Repository root calculated from script location
+            os.path.join(repo_root, 'for distribution case competition filtered_publications.csv'),
+            # Relative paths from script location
+            os.path.join(script_dir, '../../for distribution case competition filtered_publications.csv'),
+            os.path.join(script_dir, '../for distribution case competition filtered_publications.csv'),
+            os.path.join(script_dir, 'for distribution case competition filtered_publications.csv'),
+            # Relative paths from current working directory
+            '../../for distribution case competition filtered_publications.csv',
             '../for distribution case competition filtered_publications.csv',
             'for distribution case competition filtered_publications.csv',
-            '../../../../for distribution case competition filtered_publications.csv',
         ]
         
         csv_path = None
         for path in possible_paths:
             try:
-                if os.path.exists(path):
-                    csv_path = path
+                abs_path = os.path.abspath(path)
+                if os.path.exists(path) or os.path.exists(abs_path):
+                    csv_path = path if os.path.exists(path) else abs_path
                     break
-            except:
+            except Exception:
                 continue
         
         if csv_path is None:
