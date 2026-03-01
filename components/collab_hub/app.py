@@ -30,6 +30,7 @@ def load_nlp_model():
 
 # Cache original publications data loading
 @st.cache_data
+@st.cache_data
 def load_original_publications():
     """Load the original publications CSV file"""
     try:
@@ -38,21 +39,31 @@ def load_original_publications():
             '../../for distribution case competition filtered_publications.csv',
             '../for distribution case competition filtered_publications.csv',
             'for distribution case competition filtered_publications.csv',
-            '../../../../for distribution case competition filtered_publications.csv'
+            '../../../../for distribution case competition filtered_publications.csv',
+            # Streamlit Cloud paths
+            '/mount/src/sustainability_case_competition/for distribution case competition filtered_publications.csv',
+            '/mount/src/sustainability_case_competition/components/collab_hub/for distribution case competition filtered_publications.csv',
         ]
         
         csv_path = None
         for path in possible_paths:
-            if os.path.exists(path):
-                csv_path = path
-                break
+            try:
+                if os.path.exists(path):
+                    csv_path = path
+                    break
+            except:
+                continue
         
         if csv_path is None:
-            return None
+            # Don't show error here - let the calling function handle it
+            return None, None
         
         df = pd.read_csv(csv_path, low_memory=False)
+        if df is None or len(df) == 0:
+            return None, None
         return df, csv_path
     except Exception as e:
+        # Don't show error here - let the calling function handle it
         return None, None
 
 # Cache researcher profile construction from original data
@@ -197,12 +208,18 @@ def build_researcher_profiles_from_original(publications_df):
 @st.cache_data
 def load_researcher_profiles():
     """Load and build researcher profiles from original publications CSV"""
-    publications_df, csv_path = load_original_publications()
-    if publications_df is None:
+    try:
+        publications_df, csv_path = load_original_publications()
+        if publications_df is None or csv_path is None:
+            return None
+        
+        profiles_df = build_researcher_profiles_from_original(publications_df)
+        if profiles_df is None or len(profiles_df) == 0:
+            return None
+        return profiles_df
+    except Exception as e:
+        # Return None and let the UI handle the error message
         return None
-    
-    profiles_df = build_researcher_profiles_from_original(publications_df)
-    return profiles_df
 
 # Initialize session state
 if 'selected_path' not in st.session_state:
@@ -355,17 +372,40 @@ if st.session_state.selected_path == "faculty":
     # Matching Engine
     if submitted:
         with st.spinner("Analyzing research profiles and calculating compatibility..."):
-            # Filter dataset
+            # Filter dataset (less strict - allow related SDGs)
             filtered_df = df.copy()
             
-            if 'primary_sdg' in filtered_df.columns:
-                filtered_df = filtered_df[filtered_df['primary_sdg'] == target_sdg]
-            
+            # Department filter
             if target_dept != 'Open to All':
                 filtered_df = filtered_df[filtered_df['department'] == target_dept]
             
+            # SDG filter - allow exact match OR related SDGs (same cluster)
+            if 'primary_sdg' in filtered_df.columns and len(filtered_df) > 0:
+                # Get SDG clusters: 1-6 (Social), 7-12 (Economic), 13-17 (Environmental)
+                target_cluster = int((target_sdg - 1) // 6)
+                
+                def is_related_sdg(sdg):
+                    if pd.isna(sdg):
+                        return False
+                    try:
+                        sdg_int = int(float(sdg))
+                        sdg_cluster = int((sdg_int - 1) // 6)
+                        return sdg_int == target_sdg or sdg_cluster == target_cluster
+                    except:
+                        return False
+                
+                # Filter to exact match OR same cluster (broader matching)
+                filtered_df = filtered_df[filtered_df['primary_sdg'].apply(is_related_sdg)]
+            
+            # If still no matches, remove SDG filter entirely
             if len(filtered_df) == 0:
-                st.warning("No researchers found matching your criteria. Try expanding your department selection or SDG.")
+                filtered_df = df.copy()
+                if target_dept != 'Open to All':
+                    filtered_df = filtered_df[filtered_df['department'] == target_dept]
+                st.info("⚠️ No exact SDG matches found. Showing researchers from related SDG clusters or all departments.")
+            
+            if len(filtered_df) == 0:
+                st.warning("No researchers found. Try selecting 'Open to All' for department.")
                 st.stop()
             
             # Load NLP model
@@ -373,29 +413,49 @@ if st.session_state.selected_path == "faculty":
             
             # Prepare user profile for NLP matching
             user_context = f"Research in SDG {target_sdg} using {user_method} methodology"
+            user_embedding = model.encode([user_context])  # Encode once, reuse for all candidates
             
-            # Calculate Topic Score using NLP on original data (keywords + abstracts)
-            def calculate_topic_score_nlp(user_context, candidate_row):
-                """Calculate semantic similarity using actual keywords and abstracts from original CSV"""
-                # Use actual keywords and abstracts from original data
-                candidate_keywords = candidate_row.get('all_keywords_text', '')
-                candidate_abstracts = candidate_row.get('all_abstracts_text', '')
+            # Batch prepare candidate texts for faster NLP processing
+            candidate_texts = []
+            candidate_indices = []
+            for idx, candidate in filtered_df.iterrows():
+                candidate_keywords = candidate.get('all_keywords_text', '')
+                candidate_abstracts = candidate.get('all_abstracts_text', '')
                 
                 if pd.isna(candidate_keywords) or candidate_keywords == '':
                     if pd.isna(candidate_abstracts) or candidate_abstracts == '':
-                        return 50  # Default if no data
-                    candidate_text = str(candidate_abstracts)[:2000]  # Use abstracts if no keywords
+                        candidate_text = ""  # Will handle separately
+                    else:
+                        candidate_text = str(candidate_abstracts)[:2000]
                 else:
-                    # Combine keywords and abstracts from original CSV
                     candidate_text = str(candidate_keywords)
                     if pd.notna(candidate_abstracts) and candidate_abstracts != '':
                         candidate_text += ' ' + str(candidate_abstracts)[:2000]
                 
-                # NLP semantic matching on actual data
-                user_embedding = model.encode([user_context])
-                candidate_embedding = model.encode([candidate_text])
-                similarity = cosine_similarity(user_embedding, candidate_embedding)[0][0]
-                return max(0, min(100, similarity * 100))
+                candidate_texts.append(candidate_text)
+                candidate_indices.append(idx)
+            
+            # Batch encode all candidates at once (much faster)
+            non_empty_texts = [(i, t) for i, t in zip(candidate_indices, candidate_texts) if t]
+            if non_empty_texts:
+                indices_to_encode = [i for i, t in non_empty_texts]
+                texts_to_encode = [t for i, t in non_empty_texts]
+                candidate_embeddings = model.encode(texts_to_encode)
+                
+                # Calculate similarities in batch
+                similarities = cosine_similarity(user_embedding, candidate_embeddings)[0]
+                
+                # Create mapping from index to similarity
+                similarity_map = {idx: sim * 100 for idx, sim in zip(indices_to_encode, similarities)}
+            else:
+                similarity_map = {}
+            
+            # Calculate Topic Score using NLP (batch processed)
+            def calculate_topic_score_nlp(candidate_idx):
+                """Get pre-calculated similarity or default"""
+                if candidate_idx in similarity_map:
+                    return max(0, min(100, similarity_map[candidate_idx]))
+                return 50  # Default if no text data
             
             # Method complementarity matrix
             def calculate_method_score(user_method, candidate_method):
@@ -445,11 +505,11 @@ if st.session_state.selected_path == "faculty":
                     return 60
                 return 50
             
-            # Calculate scores using original data
+            # Calculate scores using original data (optimized)
             matches = []
             for idx, candidate in filtered_df.iterrows():
-                # Use NLP on actual keywords and abstracts from original CSV
-                topic_score = calculate_topic_score_nlp(user_context, candidate)
+                # Use pre-calculated NLP similarity
+                topic_score = calculate_topic_score_nlp(idx)
                 candidate_method = candidate.get('primary_method', 'Mixed Methods')
                 method_score = calculate_method_score(user_method, candidate_method)
                 candidate_stage = candidate.get('career_stage', 'Post-Tenure')
@@ -469,7 +529,8 @@ if st.session_state.selected_path == "faculty":
                     'stage': candidate_stage,
                     'keywords': candidate.get('top_keywords', ''),
                     'publications': candidate.get('total_publications', 0),
-                    'email': candidate.get('email', '')
+                    'email': candidate.get('email', ''),
+                    'primary_sdg': candidate.get('primary_sdg', target_sdg)
                 })
             
             matches_df = pd.DataFrame(matches)
@@ -485,13 +546,80 @@ if st.session_state.selected_path == "faculty":
             # Top match - prominently displayed
             top_match = matches_df.iloc[0]
             
-            st.markdown(f"""
-            <div style='background: linear-gradient(135deg, #13294B 0%, #FF5F00 100%); padding: 2rem; border-radius: 10px; color: white; margin-bottom: 2rem;'>
-                <h2 style='color: white; margin-bottom: 0.5rem;'>{top_match['name']}</h2>
-                <h1 style='color: white; font-size: 4rem; margin: 0;'>{top_match['total_score']:.0f}/100</h1>
-                <p style='color: white; font-size: 1.2rem; margin-top: 0.5rem;'>Collaboration Compatibility Score</p>
-            </div>
-            """, unsafe_allow_html=True)
+            # Display top match with gauge
+            col_score, col_gauge = st.columns([2, 1])
+            
+            with col_score:
+                st.markdown(f"""
+                <div style='background: linear-gradient(135deg, #13294B 0%, #FF5F00 100%); padding: 2rem; border-radius: 10px; color: white; margin-bottom: 2rem;'>
+                    <h2 style='color: white; margin-bottom: 0.5rem;'>{top_match['name']}</h2>
+                    <h1 style='color: white; font-size: 4rem; margin: 0;'>{top_match['total_score']:.0f}/100</h1>
+                    <p style='color: white; font-size: 1.2rem; margin-top: 0.5rem;'>Collaboration Compatibility Score</p>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            with col_gauge:
+                # Create gauge chart
+                score = top_match['total_score']
+                fig = go.Figure(go.Indicator(
+                    mode = "gauge+number+delta",
+                    value = score,
+                    domain = {'x': [0, 1], 'y': [0, 1]},
+                    title = {'text': "Match Quality"},
+                    delta = {'reference': 70},
+                    gauge = {
+                        'axis': {'range': [None, 100]},
+                        'bar': {'color': "#FF5F00"},
+                        'steps': [
+                            {'range': [0, 50], 'color': "lightgray"},
+                            {'range': [50, 70], 'color': "gray"},
+                            {'range': [70, 100], 'color': "#13294B"}
+                        ],
+                        'threshold': {
+                            'line': {'color': "red", 'width': 4},
+                            'thickness': 0.75,
+                            'value': 70
+                        }
+                    }
+                ))
+                fig.update_layout(height=250, margin=dict(l=20, r=20, t=40, b=20))
+                st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+            
+            # Generate contextual explanations based on actual scores
+            def generate_topic_explanation(topic_score, user_sdg, match_sdg, match_name):
+                """Generate explanation based on actual topic score"""
+                match_sdg_str = f"SDG {int(match_sdg)}" if pd.notna(match_sdg) and match_sdg != '' else "related areas"
+                
+                if topic_score >= 85:
+                    return f"**Strong semantic alignment** (score: {topic_score:.0f}/100). Your research in SDG {user_sdg} and {match_name}'s work in {match_sdg_str} show high conceptual overlap based on NLP analysis of keywords and abstracts from the original publications."
+                elif topic_score >= 70:
+                    return f"**Moderate semantic alignment** (score: {topic_score:.0f}/100). There's some research overlap between SDG {user_sdg} and {match_name}'s focus in {match_sdg_str}, though the connection may be more indirect based on NLP similarity."
+                elif topic_score >= 50:
+                    return f"**Limited semantic alignment** (score: {topic_score:.0f}/100). The research topics show minimal overlap based on NLP analysis of keywords and abstracts. This match relies more on method complementarity than topic similarity."
+                else:
+                    return f"**Low semantic alignment** (score: {topic_score:.0f}/100). The research topics are quite different based on NLP analysis. This match is primarily based on complementary methods rather than topic overlap."
+            
+            def generate_method_explanation(method_score, user_method, match_method, match_name):
+                """Generate explanation based on actual method score"""
+                if method_score >= 90:
+                    return f"**Excellent method complementarity** (score: {method_score:.0f}/100). Combining your {user_method} approach with {match_name}'s {match_method} methodology creates a powerful mixed-methods framework that brings different perspectives together."
+                elif method_score >= 75:
+                    return f"**Good method complementarity** (score: {method_score:.0f}/100). Your {user_method} and {match_name}'s {match_method} approaches complement each other well, enabling collaborative research."
+                elif method_score >= 60:
+                    return f"**Moderate method alignment** (score: {method_score:.0f}/100). Both using {user_method if user_method == match_method else 'similar'} methodologies enables collaborative work, though with less methodological diversity."
+                else:
+                    return f"**Limited method complementarity** (score: {method_score:.0f}/100). Both researchers use {user_method if user_method == match_method else 'similar methods'}, which may limit methodological innovation but enables shared understanding."
+            
+            def generate_career_explanation(career_score, user_stage, match_stage):
+                """Generate explanation based on actual career score"""
+                if career_score >= 90:
+                    return f"**Excellent career pairing** (score: {career_score:.0f}/100). This {user_stage} + {match_stage} combination offers strong mentorship opportunities and knowledge transfer potential."
+                elif career_score >= 75:
+                    return f"**Good career pairing** (score: {career_score:.0f}/100). Both at {user_stage if user_stage == match_stage else 'different'} stages, this enables {('peer collaboration' if user_stage == match_stage else 'cross-stage learning')}."
+                elif career_score >= 60:
+                    return f"**Moderate career pairing** (score: {career_score:.0f}/100). The {user_stage} + {match_stage} combination provides some collaboration benefits, though not optimal for mentorship."
+                else:
+                    return f"**Limited career alignment** (score: {career_score:.0f}/100). The career stage pairing may not offer the strongest mentorship or peer collaboration opportunities."
             
             # Transparent AI Breakdown - Modal-like expander
             with st.expander("🔍 Why this score? (Click to see breakdown)", expanded=False):
@@ -499,18 +627,18 @@ if st.session_state.selected_path == "faculty":
                 
                 with col1:
                     st.metric("Topic Match", f"{top_match['topic_score']:.0f}/100", 
-                             help="Semantic similarity based on research keywords and SDG alignment")
-                    st.caption("We agree on the topic and research focus.")
+                             help="NLP semantic similarity based on actual keywords and abstracts from original CSV")
+                    st.markdown(generate_topic_explanation(top_match['topic_score'], target_sdg, top_match.get('primary_sdg', target_sdg), top_match['name']))
                 
                 with col2:
                     st.metric("Method Match", f"{top_match['method_score']:.0f}/100",
                              help="Complementarity of research methods")
-                    st.caption("We have complementary skills (e.g., Archival + Survey).")
+                    st.markdown(generate_method_explanation(top_match['method_score'], user_method, top_match['method'], top_match['name']))
                 
                 with col3:
                     st.metric("Career Stage", f"{top_match['career_score']:.0f}/100",
                              help="Strategic career pairing for mentorship/collaboration")
-                    st.caption("This is a beneficial mentorship/collaboration match.")
+                    st.markdown(generate_career_explanation(top_match['career_score'], user_stage, top_match['stage']))
                 
                 st.markdown("---")
                 st.markdown(f"""
