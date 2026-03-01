@@ -8,10 +8,6 @@
 
 The **Illinois Sustainability Impact Engine** is a comprehensive platform that transforms fragmented sustainability research into actionable insights. It enables researchers, faculty, and leadership to discover expertise, identify collaboration opportunities, and make data-driven decisions aligned with the UN Sustainable Development Goals (SDGs).
 
-### 📌 **Note for Judges**
-
-This case competition submission includes **5 integrated components**. The **Collaboration Hub** (⭐) is the component we focused on and fully documented. Other components (Sustainability Dashboard, Research Coverage Analysis, Impact Engine, AI Prototype) are integrated in the Power BI platform but are not as extensively documented in this repository.
-
 ### ✨ What Makes This Different
 
 - **🔍 Discovery**: Instantly identify sustainability research expertise across all 17 UN SDGs
@@ -99,7 +95,7 @@ The platform consists of **5 integrated components** working together to address
 
 ---
 
-### 3. Collaboration Hub ⭐ **FOCUSED COMPONENT** (Supplementary Component)
+### 3. Collaboration Hub
 
 **Compatibility scoring tool** that recommends collaborators based on:
 - **Topic alignment** (SDG + keyword overlap) - 50% weight
@@ -160,13 +156,10 @@ CCS_Total = (Topic × 50%) + (Method × 35%) + (Career × 15%)
 
 ### For Judges & Reviewers
 
-**This is a case competition submission with 5 components. Collaboration Hub is our focused component.**
-
-1. **Start Here**: Read this README for platform overview (all 5 components)
-2. **Focused Component**: See `components/collab_hub/README.md` for **complete Collaboration Hub documentation**
+1. **Start Here**: Read this README for platform overview
+2. **Collaboration Hub**: See `components/collab_hub/README.md` for detailed documentation
 3. **Methodology**: Review `components/collab_hub/docs/methodology.md` for step-by-step explanation
-4. **End-to-End**: See `components/collab_hub/docs/END_TO_END_PIPELINE.md` for complete data journey
-5. **Judge Q&A**: Check `components/collab_hub/docs/judge_qa.md` for common questions
+4. **Judge Q&A**: Check `components/collab_hub/docs/judge_qa.md` for common questions
 
 ### For Developers
 
@@ -303,7 +296,7 @@ sustainability_case_competition/
 ├── DATA_POLICY.md                     # Data confidentiality policy
 │
 ├── components/                        # Platform components
-│   ├── collab_hub/                   # ⭐ Collaboration Hub (fully documented)
+│   ├── collab_hub/                   # Collaboration Hub
 │   │   ├── README.md                 # Component overview
 │   │   ├── scripts/                   # Python scripts
 │   │   │   ├── README.md             # Script documentation
@@ -338,9 +331,9 @@ sustainability_case_competition/
 
 ### Main Documentation
 
-### Collaboration Hub Documentation ⭐
+### Collaboration Hub Documentation
 
-**Complete documentation available in `components/collab_hub/`**:
+**Documentation available in `components/collab_hub/`**:
 
 | Document | Description |
 |----------|-------------|

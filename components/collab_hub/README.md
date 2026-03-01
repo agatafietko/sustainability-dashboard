@@ -1,12 +1,8 @@
-# Collaboration Hub – Complete Documentation
+# Collaboration Hub
 
-> **⭐ FOCUSED COMPONENT of the Illinois Sustainability Impact Engine Case Competition**
+> **Component of the Illinois Sustainability Impact Engine**
 
-**This is the component we focused on and fully documented for the case competition submission.**
-
-The Collaboration Hub is one of 5 integrated components in the Sustainability Impact Engine. It is a **supplementary compatibility scoring tool** that recommends research collaborators based on topic alignment, method complementarity, and career stage fit. It enhances the platform by adding a compatibility layer, but the core components (Sustainability Dashboard, Research Coverage Analysis, Impact Engine) work independently.
-
-**Note**: This repository contains complete documentation for the Collaboration Hub. Other components (Sustainability Dashboard, Research Coverage Analysis, Impact Engine, AI Prototype) are integrated in the Power BI platform but are not as extensively documented here.
+The Collaboration Hub is one of 5 integrated components in the Sustainability Impact Engine. It is a compatibility scoring tool that recommends research collaborators based on topic alignment, method complementarity, and career stage fit. It enhances the platform by adding a compatibility layer, working alongside the Sustainability Dashboard, Research Coverage Analysis, Impact Engine, and AI Prototype.
 
 ## 🎯 Quick Overview
 
@@ -123,21 +119,7 @@ Every match includes:
 ## 📖 Documentation
 
 ### Core Documentation
-### Essential Reading
-
-- **`docs/END_TO_END_PIPELINE.md`** ⭐ - **Complete data journey from original CSV to Power BI MVP**
-  - What each script does
-  - What's real vs. simulated
-  - How it integrates with other components
-  - Power BI setup guide
-
-- **`docs/VALUE_PROPOSITION_AND_POSITIONING.md`** ⭐ - **How to sell the idea**
-  - Positioning as supplementary tool
-  - Value proposition for each stakeholder
-  - Integration with other components
-  - Elevator pitch and talking points
-
-### Detailed Documentation
+### Documentation
 
 - **`docs/methodology.md`** - Complete step-by-step methodology
 - **`docs/BUSINESS_LOGIC_AND_DECISIONS.md`** - Business rationale for weights, decisions, and design choices
@@ -174,17 +156,13 @@ This is a **rule-based system**, not predictive AI. Every score is explainable a
 
 ## 🎓 For Judges
 
-**This is our focused component for the case competition submission.**
-
 **Key points to understand**:
 
-1. **Focused Component**: This is the component we chose to fully document and develop
-2. **Not AI prediction**: This is a transparent heuristic, not a machine learning model
-3. **Complementarity focus**: The innovation is rewarding different methods, not similarity
-4. **Explainable**: Every match has a clear explanation
-5. **Demo layer**: The dashboard uses demo data for clarity; the methodology works on real data
-6. **Part of larger platform**: This is one of 5 components in the Sustainability Impact Engine
-7. **Complete documentation**: All scripts, methodology, and documentation are provided here
+1. **Not AI prediction**: This is a transparent heuristic, not a machine learning model
+2. **Complementarity focus**: The innovation is rewarding different methods, not similarity
+3. **Explainable**: Every match has a clear explanation
+4. **Demo layer**: The dashboard uses demo data for clarity; the methodology works on real data
+5. **Part of larger platform**: This is one of 5 components in the Sustainability Impact Engine
 
 See `docs/judge_qa.md` for detailed answers to common questions.
 
