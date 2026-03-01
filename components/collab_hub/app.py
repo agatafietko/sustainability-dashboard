@@ -91,6 +91,30 @@ def load_original_publications():
             except Exception:
                 continue
         
+        # If still not found, try listing files in the repo root to debug
+        if csv_path is None:
+            # Try to list files in repo root to see what's actually there
+            try:
+                repo_files = []
+                for check_dir in [repo_root, current_dir, '/mount/src/sustainability_case_competition']:
+                    try:
+                        if os.path.exists(check_dir):
+                            files = os.listdir(check_dir)
+                            csv_files = [f for f in files if f.endswith('.csv')]
+                            if csv_files:
+                                repo_files.extend([os.path.join(check_dir, f) for f in csv_files])
+                    except:
+                        continue
+                
+                # Try to find the file by partial name match
+                for file_path in repo_files:
+                    if 'distribution' in file_path.lower() and 'publications' in file_path.lower():
+                        if os.path.exists(file_path):
+                            csv_path = file_path
+                            break
+            except:
+                pass
+        
         if csv_path is None:
             return None, None
         
@@ -367,15 +391,34 @@ if st.session_state.selected_path == "faculty":
         
         # Debug info (only show in development)
         with st.expander("🔍 Debug Information", expanded=False):
-            st.code(f"""
-Current working directory: {os.getcwd()}
+            try:
+                script_dir = os.path.dirname(os.path.abspath(__file__))
+                repo_root = os.path.abspath(os.path.join(script_dir, '../..'))
+                current_dir = os.getcwd()
+                
+                # List CSV files in repo root
+                csv_files_found = []
+                for check_dir in [repo_root, current_dir, '/mount/src/sustainability_case_competition']:
+                    try:
+                        if os.path.exists(check_dir):
+                            files = os.listdir(check_dir)
+                            csv_files = [f for f in files if f.endswith('.csv')]
+                            if csv_files:
+                                csv_files_found.extend([f"{check_dir}: {', '.join(csv_files[:5])}"])
+                    except:
+                        pass
+                
+                debug_info = f"""
+Current working directory: {current_dir}
 App file location: {__file__}
-Checked paths:
-- /mount/src/sustainability_case_competition/for distribution case competition filtered_publications.csv
-- ../../for distribution case competition filtered_publications.csv
-- ../for distribution case competition filtered_publications.csv
-- for distribution case competition filtered_publications.csv
-            """)
+Script directory: {script_dir}
+Repo root (calculated): {repo_root}
+CSV files found in directories:
+{chr(10).join(csv_files_found) if csv_files_found else 'No CSV files found in checked directories'}
+                """
+                st.code(debug_info)
+            except Exception as e:
+                st.code(f"Debug error: {str(e)}")
         
         st.info("""
         **The CSV file should be in the repository root directory:**
