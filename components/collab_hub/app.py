@@ -432,7 +432,7 @@ CSV files found in directories:
     with st.expander("ℹ️ Data Source", expanded=False):
         st.info(f"""
         **Using original publications data:**
-        - Source: `for distribution case competition filtered_publications.csv`
+        - Source: `publications.csv`
         - Researchers: {len(df)} profiles built from original publication records
         - NLP analysis performed on actual keywords and abstracts from original data
         - No simulated or random data used
@@ -1012,7 +1012,7 @@ if st.session_state.selected_path:
         
         We use **sentence-transformers** (`all-MiniLM-L6-v2`) to calculate semantic similarity between:
         - Your research context (SDG + method)
-        - **Actual keywords and abstracts from the original publications CSV** (`for distribution case competition filtered_publications.csv`)
+        - **Actual keywords and abstracts from the original publications CSV** (`publications.csv`)
         
         **Data Source**: The NLP analysis uses the actual `keywords` and `abstract` columns from the original 
         publications CSV file. No pre-processed or simulated data is used.
@@ -1065,7 +1065,7 @@ if st.session_state.selected_path:
         
         ### Data Sources
         
-        - **Original CSV**: `for distribution case competition filtered_publications.csv`
+        - **Original CSV**: `publications.csv`
         - **Researcher Profiles**: Built on-the-fly from original publication records (no pre-processing)
         - **Keywords**: Extracted directly from `keywords` column in original CSV
         - **Abstracts**: Used from `abstract` column in original CSV for NLP matching
