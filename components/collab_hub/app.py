@@ -41,7 +41,7 @@ def load_original_publications_from_path(csv_path):
     except Exception as e:
         return None
 
-@st.cache_data
+@st.cache_data(show_spinner=False)
 def load_original_publications():
     """Load the original publications CSV file - tries repository paths first"""
     try:
@@ -102,22 +102,20 @@ def load_original_publications():
         if csv_path is None:
             # Try to list files in repo root to see what's actually there
             try:
-                for check_dir in [repo_root, current_dir, '/mount/src/sustainability_case_competition']:
+                for check_dir in ['/mount/src/sustainability_case_competition', repo_root, current_dir]:
                     try:
                         if os.path.exists(check_dir):
                             files = os.listdir(check_dir)
-                            # Look for publications.csv specifically
-                            if 'publications.csv' in files:
-                                csv_path = os.path.join(check_dir, 'publications.csv')
-                                if os.path.exists(csv_path):
-                                    break
-                            # Also try any CSV file with 'publication' in the name
-                            csv_files = [f for f in files if f.endswith('.csv') and 'publication' in f.lower()]
-                            if csv_files:
-                                potential_path = os.path.join(check_dir, csv_files[0])
-                                if os.path.exists(potential_path):
-                                    csv_path = potential_path
-                                    break
+                            # Look for publications.csv specifically (case-insensitive)
+                            for f in files:
+                                if f.lower() == 'publications.csv':
+                                    potential_path = os.path.join(check_dir, f)
+                                    # Try to verify it's a file and readable
+                                    if os.path.isfile(potential_path):
+                                        csv_path = potential_path
+                                        break
+                            if csv_path:
+                                break
                     except Exception as e:
                         continue
             except:
