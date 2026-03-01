@@ -1,4 +1,6 @@
 # Data files (sensitive - do not commit)
+# Exception: for distribution case competition filtered_publications.csv (needed for Streamlit Cloud)
+!for distribution case competition filtered_publications.csv
 *.csv
 *.xlsx
 *.xls

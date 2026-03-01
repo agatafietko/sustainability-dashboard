@@ -31,18 +31,31 @@ def load_nlp_model():
 # Cache original publications data loading
 @st.cache_data
 @st.cache_data
+def load_original_publications_from_path(csv_path):
+    """Load the original publications CSV file from a specific path"""
+    try:
+        df = pd.read_csv(csv_path, low_memory=False)
+        if df is None or len(df) == 0:
+            return None
+        return df
+    except Exception as e:
+        return None
+
+@st.cache_data
 def load_original_publications():
-    """Load the original publications CSV file"""
+    """Load the original publications CSV file - tries repository paths first"""
     try:
         # Try multiple possible paths for the original CSV
+        # Priority: repository root (for Streamlit Cloud), then relative paths (for local dev)
         possible_paths = [
+            # Repository root (Streamlit Cloud and local)
             '../../for distribution case competition filtered_publications.csv',
+            # Streamlit Cloud absolute paths
+            '/mount/src/sustainability_case_competition/for distribution case competition filtered_publications.csv',
+            # Local relative paths
             '../for distribution case competition filtered_publications.csv',
             'for distribution case competition filtered_publications.csv',
             '../../../../for distribution case competition filtered_publications.csv',
-            # Streamlit Cloud paths
-            '/mount/src/sustainability_case_competition/for distribution case competition filtered_publications.csv',
-            '/mount/src/sustainability_case_competition/components/collab_hub/for distribution case competition filtered_publications.csv',
         ]
         
         csv_path = None
@@ -55,7 +68,6 @@ def load_original_publications():
                 continue
         
         if csv_path is None:
-            # Don't show error here - let the calling function handle it
             return None, None
         
         df = pd.read_csv(csv_path, low_memory=False)
@@ -63,7 +75,6 @@ def load_original_publications():
             return None, None
         return df, csv_path
     except Exception as e:
-        # Don't show error here - let the calling function handle it
         return None, None
 
 # Cache researcher profile construction from original data
@@ -221,6 +232,18 @@ def load_researcher_profiles():
         # Return None and let the UI handle the error message
         return None
 
+def get_researcher_profiles_with_fallback():
+    """Get researcher profiles with file upload fallback - use this in UI code"""
+    # Try loading from file system first
+    df = load_researcher_profiles()
+    
+    # If not found, check for uploaded file in session state
+    if df is None:
+        if 'uploaded_publications_df' in st.session_state and st.session_state.uploaded_publications_df is not None:
+            df = build_researcher_profiles_from_original(st.session_state.uploaded_publications_df)
+    
+    return df
+
 # Initialize session state
 if 'selected_path' not in st.session_state:
     st.session_state.selected_path = None
@@ -311,14 +334,16 @@ if st.session_state.selected_path == "faculty":
     
     st.markdown("---")
     
-    # Load data from original CSV
-    df = load_researcher_profiles()
+    # Load data from original CSV (from repository)
+    df = get_researcher_profiles_with_fallback()
+    
+    # If still not found, show error with helpful message
     if df is None:
-        st.error("❌ Original publications CSV not found.")
+        st.error("❌ Original publications CSV file not found.")
         st.info("""
-        **Please ensure the original CSV file is accessible:**
+        **The CSV file should be in the repository root directory:**
         - `for distribution case competition filtered_publications.csv`
-        - Should be in the root directory or parent directories
+        - The file is now included in the GitHub repository for Streamlit Cloud access
         """)
         st.stop()
     
@@ -692,9 +717,13 @@ elif st.session_state.selected_path == "student":
     st.markdown("---")
     
     # Load data
-    df = load_researcher_profiles()
+    # Load data from original CSV (from repository)
+    df = get_researcher_profiles_with_fallback()
+    
+    # If still not found, show error
     if df is None:
-        st.error("❌ Original publications CSV not found.")
+        st.error("❌ Original publications CSV file not found.")
+        st.info("The CSV file should be in the repository root directory.")
         st.stop()
     
     # Student questionnaire
@@ -794,9 +823,13 @@ elif st.session_state.selected_path == "donor":
     st.markdown("---")
     
     # Load data
-    df = load_researcher_profiles()
+    # Load data from original CSV (from repository)
+    df = get_researcher_profiles_with_fallback()
+    
+    # If still not found, show error
     if df is None:
-        st.error("❌ Original publications CSV not found.")
+        st.error("❌ Original publications CSV file not found.")
+        st.info("The CSV file should be in the repository root directory.")
         st.stop()
     
     # Calculate SDG coverage
