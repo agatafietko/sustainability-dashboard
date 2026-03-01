@@ -59,21 +59,21 @@ def load_original_publications():
         # Priority: Streamlit Cloud absolute paths, then repository root, then relative paths
         possible_paths = [
             # Streamlit Cloud absolute paths (most reliable for deployment)
-            '/mount/src/sustainability_case_competition/for distribution case competition filtered_publications.csv',
+            '/mount/src/sustainability_case_competition/publications.csv',
             # Repository root calculated from script location
-            os.path.join(repo_root, 'for distribution case competition filtered_publications.csv'),
+            os.path.join(repo_root, 'publications.csv'),
             # Relative paths from script location
-            os.path.join(script_dir, '../../for distribution case competition filtered_publications.csv'),
-            os.path.join(script_dir, '../for distribution case competition filtered_publications.csv'),
-            os.path.join(script_dir, 'for distribution case competition filtered_publications.csv'),
+            os.path.join(script_dir, '../../publications.csv'),
+            os.path.join(script_dir, '../publications.csv'),
+            os.path.join(script_dir, 'publications.csv'),
             # Relative paths from current working directory
-            os.path.join(current_dir, '../../for distribution case competition filtered_publications.csv'),
-            os.path.join(current_dir, '../for distribution case competition filtered_publications.csv'),
-            os.path.join(current_dir, 'for distribution case competition filtered_publications.csv'),
+            os.path.join(current_dir, '../../publications.csv'),
+            os.path.join(current_dir, '../publications.csv'),
+            os.path.join(current_dir, 'publications.csv'),
             # Simple relative paths
-            '../../for distribution case competition filtered_publications.csv',
-            '../for distribution case competition filtered_publications.csv',
-            'for distribution case competition filtered_publications.csv',
+            '../../publications.csv',
+            '../publications.csv',
+            'publications.csv',
         ]
         
         csv_path = None
@@ -108,7 +108,7 @@ def load_original_publications():
                 
                 # Try to find the file by partial name match
                 for file_path in repo_files:
-                    if 'distribution' in file_path.lower() and 'publications' in file_path.lower():
+                    if 'publications' in file_path.lower() or 'publication' in file_path.lower():
                         if os.path.exists(file_path):
                             csv_path = file_path
                             break
@@ -422,9 +422,9 @@ CSV files found in directories:
         
         st.info("""
         **The CSV file should be in the repository root directory:**
-        - `for distribution case competition filtered_publications.csv`
+        - `publications.csv`
         - The file is included in the GitHub repository
-        - On Streamlit Cloud, it should be at: `/mount/src/sustainability_case_competition/for distribution case competition filtered_publications.csv`
+        - On Streamlit Cloud, it should be at: `/mount/src/sustainability_case_competition/publications.csv`
         """)
         st.stop()
     
