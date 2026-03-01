@@ -15,7 +15,7 @@ The **Collaboration Hub** is a supplementary compatibility scoring tool that hel
 ## 📊 **End-to-End Process**
 
 ### **Step 1: Original Data**
-- **Input**: University publications CSV (`for distribution case competition filtered_publications.csv`)
+- **Input**: University publications CSV (`publications.csv`)
 - **Contains**: Real publication metadata (names, departments, keywords, abstracts, SDGs, publication years)
 
 ### **Step 2: Streamlit App - Real-Time Analysis**
@@ -106,10 +106,10 @@ The **Collaboration Hub** is a supplementary compatibility scoring tool that hel
 
 ## 📚 **Where to Learn More**
 
-1. **`END_TO_END_PIPELINE.md`** - Complete data journey, what each script does
-2. **`VALUE_PROPOSITION_AND_POSITIONING.md`** - How to sell the idea, positioning
-3. **`methodology.md`** - Step-by-step methodology
-4. **`judge_qa.md`** - Answers to common questions
+1. **`methodology.md`** - Complete methodology (NLP formula, CCS scoring)
+2. **`judge_qa.md`** - Answers to common questions
+3. **`DEPLOYMENT_GUIDE.md`** - Streamlit Cloud deployment
+4. **`README.md`** - Component overview
 
 ---
 

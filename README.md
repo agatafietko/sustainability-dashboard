@@ -113,7 +113,7 @@ CCS_Total = (Topic × 50%) + (Method × 35%) + (Career × 15%)
 #### Features
 - ✅ Transparent, rule-based scoring (not predictive AI)
 - ✅ Explainable recommendations with natural language explanations
-- ✅ Power BI dashboard with interactive filtering
+- ✅ Streamlit web app with interactive matching
 - ✅ Complete methodology documentation
 
 #### Positioning
@@ -121,12 +121,10 @@ CCS_Total = (Topic × 50%) + (Method × 35%) + (Career × 15%)
 
 #### 📚 Complete Documentation
 **See `components/collab_hub/README.md`** for:
-- **End-to-end pipeline** - Complete data journey from CSV to Power BI
-- **Value proposition** - How to sell the idea and positioning
-- Step-by-step methodology
-- Script documentation
-- Power BI setup guide
-- Judge Q&A answers
+- **Streamlit app** - Interactive web application
+- **Methodology** - NLP formula and CCS scoring
+- **Deployment guide** - Streamlit Cloud setup
+- **Judge Q&A** - Answers to common questions
 
 ---
 
@@ -298,22 +296,14 @@ sustainability_case_competition/
 ├── components/                        # Platform components
 │   ├── collab_hub/                   # Collaboration Hub
 │   │   ├── README.md                 # Component overview
-│   │   ├── scripts/                   # Python scripts
-│   │   │   ├── README.md             # Script documentation
-│   │   │   ├── build_collab_hub_from_scratch.py
-│   │   │   └── generate_ccs_demo_data.py
-│   │   ├── docs/                      # Methodology & submission docs
-│   │   │   ├── methodology.md        # Complete step-by-step methodology
+│   │   ├── app.py                     # Main Streamlit application
+│   │   ├── requirements.txt           # Python dependencies
+│   │   ├── DEPLOYMENT_GUIDE.md        # Streamlit Cloud deployment
+│   │   ├── docs/                      # Documentation
+│   │   │   ├── methodology.md        # Complete methodology (NLP, CCS)
 │   │   │   ├── limitations.md        # Known limitations
 │   │   │   ├── judge_qa.md           # Answers to judge questions
-│   │   │   ├── cover_letter_template.md
-│   │   │   └── slides_outline.md
-│   │   ├── powerbi/                   # Power BI setup
-│   │   │   └── README.md
-│   │   ├── data/                      # Data policy
-│   │   │   └── README.md
-│   │   └── outputs/                   # Output descriptions
-│   │       └── README.md
+│   │   │   └── QUICK_START_FOR_JUDGES.md
 │   ├── sustainability_dashboard/      # (component folder)
 │   ├── research_coverage/            # (component folder)
 │   ├── impact_engine/                # (component folder)
