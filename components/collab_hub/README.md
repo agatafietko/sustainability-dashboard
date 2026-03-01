@@ -15,9 +15,8 @@ The Collaboration Hub is one of 5 integrated components in the Sustainability Im
 
 **Output**: 
 - **Streamlit Web App**: Interactive matching with transparent scoring
-- **Power BI Dashboard**: Alternative visualization (optional)
 
-**Data Source**: Uses original `for distribution case competition filtered_publications.csv` - builds profiles on-the-fly, no pre-processed data
+**Data Source**: Uses original `publications.csv` - builds profiles on-the-fly, no pre-processed data
 
 **Part of**: The Illinois Sustainability Impact Engine (along with Sustainability Dashboard, Research Coverage Analysis, Impact Engine, and AI Prototype)
 
@@ -28,22 +27,15 @@ The Collaboration Hub is one of 5 integrated components in the Sustainability Im
 ```
 components/collab_hub/
 ├── README.md                    # This file
-├── scripts/                     # Python scripts
-│   ├── README.md               # Script documentation
-│   ├── build_collab_hub_from_scratch.py
-│   └── generate_ccs_demo_data.py
-├── docs/                        # Methodology & submission docs
-│   ├── methodology.md          # Complete methodology
+├── app.py                       # Main Streamlit application
+├── requirements.txt             # Python dependencies
+├── DEPLOYMENT_GUIDE.md          # Streamlit Cloud deployment guide
+├── docs/                        # Documentation
+│   ├── methodology.md          # Complete methodology (NLP, CCS formula)
 │   ├── limitations.md          # Known limitations
 │   ├── judge_qa.md            # Answers to judge questions
-│   ├── cover_letter_template.md
-│   └── slides_outline.md
-├── powerbi/                     # Power BI setup
-│   └── README.md
-├── data/                        # Data policy
-│   └── README.md
-└── outputs/                     # Output descriptions
-    └── README.md
+│   └── QUICK_START_FOR_JUDGES.md # Quick overview for judges
+└── publications.csv             # Original data (in repo root)
 ```
 
 ---
@@ -73,16 +65,13 @@ components/collab_hub/
 2. **Main file path**: `components/collab_hub/app.py`
 3. See `DEPLOYMENT_GUIDE.md` for detailed instructions
 
-### Power BI Dashboard (Optional)
-
-For Power BI visualization, see `powerbi/README.md`
 
 ---
 
 ## 📊 How It Works
 
 ### Data Source
-- **Original CSV**: `for distribution case competition filtered_publications.csv`
+- **Original CSV**: `publications.csv` (in repository root)
 - **Profile Construction**: Built on-the-fly from original publication records
 - **NLP Analysis**: Uses actual keywords and abstracts from original CSV
 - **No Pre-processing**: All analysis performed on original data
@@ -110,19 +99,15 @@ For Power BI visualization, see `powerbi/README.md`
 ## 📖 Documentation
 
 ### Essential Reading
-- **`STREAMLIT_DEPLOYMENT.md`** ⭐ - Quick deployment guide with GitHub repo link
-- **`DEPLOYMENT_GUIDE.md`** - Detailed Streamlit Cloud deployment instructions
-- **`docs/END_TO_END_PIPELINE.md`** - Complete data journey from original CSV to Streamlit app
+- **`DEPLOYMENT_GUIDE.md`** - Streamlit Cloud deployment instructions
 - **`docs/QUICK_START_FOR_JUDGES.md`** - Quick overview for judges
 
 ### Detailed Documentation
-- **`docs/methodology.md`** - Step-by-step methodology
-- **`docs/BUSINESS_LOGIC_AND_DECISIONS.md`** - Business rationale for weights and decisions
+- **`docs/methodology.md`** - Complete methodology (NLP formula, CCS scoring)
 - **`docs/judge_qa.md`** - Answers to common judge questions
 - **`docs/limitations.md`** - Known limitations and future work
 
 ### Technical Documentation
-- **`scripts/README.md`** - Script documentation (for batch processing, optional)
 - **`app.py`** - Main Streamlit application (commented code)
 
 ---
@@ -131,7 +116,7 @@ For Power BI visualization, see `powerbi/README.md`
 
 ### Data Source
 
-- **Streamlit App**: Uses original `for distribution case competition filtered_publications.csv`
+- **Streamlit App**: Uses original `publications.csv`
 - **Profile Construction**: Built on-the-fly from original publication records
 - **NLP Analysis**: Performed on actual keywords and abstracts from original CSV
 - **No Pre-processing**: All analysis uses original data directly
@@ -156,7 +141,7 @@ This is a **rule-based system with NLP**, not predictive AI. Every score is expl
 1. **Not AI prediction**: This is a transparent heuristic, not a machine learning model
 2. **Complementarity focus**: The innovation is rewarding different methods, not similarity
 3. **Explainable**: Every match has a clear explanation
-4. **Demo layer**: The dashboard uses demo data for clarity; the methodology works on real data
+4. **Real data only**: The app uses only real data from the original publications CSV
 5. **Part of larger platform**: This is one of 5 components in the Sustainability Impact Engine
 
 See `docs/judge_qa.md` for detailed answers to common questions.

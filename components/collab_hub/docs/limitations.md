@@ -4,7 +4,7 @@
 - Rule‑based scoring (not predictive AI)
 - Method inference depends on keywords/abstracts and may miss nuance
 - SDG assignment relies on provided labels and can be sparse
-- Demo data includes randomized variation for presentation
+- Method inference relies on keyword matching from abstracts, which may not capture all nuances
 
 ## Future improvements
 - Validate scoring with faculty feedback and historical collaboration outcomes

@@ -260,7 +260,7 @@ See `limitations.md` for detailed limitations. Key points:
 1. **Rule-based, not AI**: This is a transparent heuristic, not a predictive ML model
 2. **Method inference**: Simple keyword matching may miss nuance
 3. **SDG assignment**: Relies on provided labels (may be sparse)
-4. **Demo data**: Includes randomization for presentation clarity
+4. **Streamlit App**: Interactive web application for real-time matching
 
 ---
 
@@ -269,14 +269,14 @@ See `limitations.md` for detailed limitations. Key points:
 ### To Reproduce Results
 
 1. Place the publications CSV in the expected location
-2. Run `build_collab_hub_from_scratch.py`
+2. Run the Streamlit app: `streamlit run app.py`
 3. Review outputs in `Researcher_Profiles_For_PowerBI.csv` and `Collab_Matches_For_PowerBI.csv`
 
-### To Generate Demo Data
+### To Use the Streamlit App
 
-1. First run `build_collab_hub_from_scratch.py` (to create researcher profiles)
-2. Then run `generate_ccs_demo_data.py`
-3. Review `CCS_Demo_Data.csv`
+1. Install dependencies: `pip install -r requirements.txt`
+2. Run the app: `streamlit run app.py`
+3. Access at `http://localhost:8501`
 
 ---
 

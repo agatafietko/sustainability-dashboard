@@ -35,7 +35,7 @@ The **Collaboration Hub** is a supplementary compatibility scoring tool that hel
 
 ---
 
-## ✅ **What's Real vs. Simulated**
+## ✅ **Data Source**
 
 ### **100% Real** (From Original CSV)
 - ✅ All researcher names
@@ -55,6 +55,7 @@ The **Collaboration Hub** is a supplementary compatibility scoring tool that hel
 - ✅ All data comes from original CSV
 - ✅ Profiles built on-the-fly from original publications
 - ✅ NLP performed on actual research content
+- ✅ All data comes from original publications CSV
 - ✅ No pre-processed or simulated data
 
 ---

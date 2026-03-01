@@ -1,0 +1,14 @@
+# data files
+*.csv
+*.xlsx
+
+# powerbi
+*.pbix
+
+# python
+__pycache__/
+*.pyc
+.venv/
+
+# mac
+.DS_Store

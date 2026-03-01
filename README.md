@@ -234,7 +234,7 @@ generate_ccs_demo_data.py (for demo)
     ├── Generate matches
     └── Calculate compatibility scores
     ↓
-CCS_Demo_Data.csv → Power BI Dashboard
+Streamlit App → Interactive matching interface
 ```
 
 **See `components/collab_hub/scripts/README.md`** for detailed script documentation.
@@ -264,7 +264,7 @@ CCS_Demo_Data.csv → Power BI Dashboard
 - **Rule-based system**: Not predictive AI - every score is explainable
 - **Transparent scoring**: Complete methodology documented
 - **Reproducible**: Scripts available for validation
-- **Demo data**: Clearly labeled as synthetic for presentation
+- **Real data only**: All matching uses actual publication data
 
 ---
 
@@ -342,7 +342,6 @@ sustainability_case_competition/
 | `docs/judge_qa.md` | Answers to common judge questions |
 | `docs/limitations.md` | Known limitations and future work |
 | `scripts/README.md` | Script documentation and usage |
-| `powerbi/README.md` | Power BI setup guide |
 
 ---
 
@@ -405,7 +404,7 @@ All data processing and analysis was performed on publicly available or anonymiz
 ## 📧 Contact & Links
 
 - 📧 **Questions**: Reach out through GitHub Issues
-- 📊 **Power BI Report**: [View Dashboard](https://app.powerbi.com/groups/me/reports/8c00bb12-b145-4b39-ac02-85b5aa41f628/c49807a08d6527738b11?experience=power-bi) (requires access)
+- 🌐 **Streamlit App**: Deployed on Streamlit Cloud (see DEPLOYMENT_GUIDE.md)
 - 📄 **Presentation**: Available in `/presentation` folder
 - 🤖 **AI Prototype**: Try the AI Prototype
 

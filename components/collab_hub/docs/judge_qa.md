@@ -15,5 +15,5 @@ Each row is a specific researcher pair. Selecting a row displays the score break
 ## What is new compared to the status quo?
 Existing dashboards show counts and trends. The Collaboration Hub recommends actionable collaborations and explicitly rewards complementary methods, not just similarity.
 
-## Is the demo data real?
-The demo dashboard uses `CCS_Demo_Data.csv`, which is generated from real profiles with small randomized variation to demonstrate the logic clearly.
+## Is the data real?
+Yes, the Streamlit app uses only real data from the original publications CSV (`publications.csv`). All researcher profiles and matches are built on-the-fly from actual publication records. No simulated or demo data is used.
