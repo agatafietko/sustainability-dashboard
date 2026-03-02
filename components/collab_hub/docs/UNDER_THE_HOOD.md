@@ -332,4 +332,96 @@ The app generates explanations based on actual scores:
 
 ---
 
+## ❓ Frequently Asked Questions
+
+### Is this AI? How accurate is it?
+
+This is a **transparent, rule-based scoring system**, not a predictive AI model. We prioritized explainability so decision-makers can see exactly why a match is recommended. The NLP component uses semantic similarity to understand research topics, but the scoring logic is fully transparent and rule-based.
+
+**Accuracy**: The system doesn't predict collaboration success (which is impossible). Instead, it identifies researchers with:
+- High semantic topic alignment (NLP analysis)
+- Complementary methodological approaches (rule-based)
+- Beneficial career stage pairings (rule-based)
+
+Every score is explainable and can be validated by examining the underlying data.
+
+### Why is career fit only 15%?
+
+**Topic alignment (45%)** and **methodological complementarity (40%)** drive research synergy most strongly. These factors determine whether two researchers can actually work together effectively.
+
+**Career stage (15%)** matters for mentorship and collaboration dynamics, but should not dominate collaboration quality. A Pre-Tenure researcher working with a Post-Tenure researcher on aligned topics with complementary methods will have a strong collaboration regardless of career stage—the 15% weighting ensures mentorship opportunities are recognized without overshadowing research fit.
+
+**Rationale**: We prioritize semantic research alignment and methodological fit first (85%), but apply a 15% weighting to career stages to actively foster junior-faculty mentorship and cross-seniority knowledge transfer.
+
+### Where did the data come from?
+
+All data comes from the **provided publications dataset** (`publications.csv`). No external scraping or data collection was performed. The dataset includes:
+- Author names and departments
+- Publication years
+- Keywords and abstracts
+- SDG labels (1-17)
+- Sustainability flags
+
+The Streamlit app uses **only real data** from this original CSV file. All researcher profiles and matches are built on-the-fly from actual publication records. No simulated or demo data is used.
+
+### How can we see who is paired?
+
+In the Streamlit app:
+1. Select your research preferences (SDG, method, career stage)
+2. Click "Find My Best Collaborator"
+3. View the **Top 3 matches** with:
+   - Researcher name and department
+   - Compatibility score (0-100)
+   - Transparent score breakdown (Topic, Method, Career)
+   - Natural language explanation of why the match works
+
+Each match card shows the complete compatibility breakdown, making it easy to understand why each researcher was recommended.
+
+### What is new compared to the status quo?
+
+**Existing dashboards** show counts and trends—they're descriptive and passive.
+
+**The Collaboration Hub** is **prescriptive and proactive**:
+- **Actionable recommendations**: Instead of showing "here's who exists," it says "here's who you should work with"
+- **Complementarity focus**: Rewards different methods (innovation driver), not just similarity
+- **Transparent scoring**: Every recommendation is explainable
+- **Real-time matching**: Uses NLP on actual research content, not pre-computed lists
+
+This moves from "information access" to "insight generation."
+
+### Is the data real?
+
+**Yes, absolutely.** The Streamlit app uses only real data from the original publications CSV (`publications.csv`). All researcher profiles and matches are built on-the-fly from actual publication records. No simulated or demo data is used.
+
+The app:
+- Loads the original CSV directly
+- Builds researcher profiles by aggregating their actual publications
+- Performs NLP analysis on real keywords and abstracts
+- Calculates compatibility scores using real data
+
+Everything is transparent and reproducible.
+
+### How does the NLP work?
+
+The app uses `sentence-transformers` with the `all-MiniLM-L6-v2` model to:
+1. **Encode** user research context (SDG + method) into a vector
+2. **Encode** candidate researcher content (keywords + abstracts) into vectors
+3. **Calculate cosine similarity** between vectors
+4. **Scale** similarity to 0-100 for the Topic Score
+
+This captures **semantic meaning** beyond exact keyword matches. For example, "machine learning" and "artificial intelligence" are recognized as related even without exact keyword overlap.
+
+### Why reward complementary methods instead of similar methods?
+
+**Innovation comes from combining different perspectives.** Two researchers using the same method (e.g., both doing surveys) can collaborate, but they're likely to approach problems similarly. 
+
+**Complementary methods** (e.g., Theoretical + Empirical) bring different strengths:
+- Theoretical researcher provides frameworks and models
+- Empirical researcher provides data and validation
+- Together, they create a stronger, more innovative research approach
+
+This is the **key innovation** of the Collaboration Hub: actively seeking methodological diversity to drive interdisciplinary breakthroughs.
+
+---
+
 **Last Updated**: Based on `app.py` implementation as of latest commit

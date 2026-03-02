@@ -1,54 +1,41 @@
 # The Illinois Sustainability Impact Engine
 
-> **A decision-support platform for discovering sustainability research expertise and facilitating interdisciplinary collaboration across university departments.**
+> **A comprehensive decision-support platform transforming fragmented sustainability research into actionable insights for researchers, faculty, and leadership.**
 
 ---
 
-## 🎯 Quick Overview
+<div align="center">
 
-The **Illinois Sustainability Impact Engine** is a comprehensive platform that transforms fragmented sustainability research into actionable insights. It enables researchers, faculty, and leadership to discover expertise, identify collaboration opportunities, and make data-driven decisions aligned with the UN Sustainable Development Goals (SDGs).
+![Platform Overview](screenshots/Sustainability.png)
 
-### ✨ What Makes This Different
+**Connecting Research. Driving Impact. Advancing Sustainability.**
 
-- **🔍 Discovery**: Instantly identify sustainability research expertise across all 17 UN SDGs
-- **🤝 Smart Matching**: Collaboration recommendations based on complementary methods, not just similarity
-- **📊 Strategic Insights**: Visualize research coverage, gaps, and trends to inform funding decisions
-- **🎯 Actionable**: Move from passive reporting to proactive collaboration facilitation
+[🌐 AI Prototype](https://aistudio.google.com/apps/drive/1nOrHvvhmT6JiSS_uvIfVkTRNFIb07NbI?showPreview=true&showAssistant=true) • [💡 Impact Engine](https://prattkk11.github.io/sustainability-dashboard/) • [🤝 Collaboration Hub](components/collab_hub/) • [📊 Presentation](presentation/Case%20Comp.pdf)
 
----
-
-## 📋 Table of Contents
-
-- [Problem Statement](#-problem-statement)
-- [Solution Architecture](#-solution-architecture)
-- [Platform Components](#-platform-components)
-- [Collaboration Hub](#collaboration-hub) 
-- [Getting Started](#-getting-started)
-- [Technical Implementation](#-technical-implementation)
-- [Data & Methodology](#-data--methodology)
-- [Repository Structure](#-repository-structure)
-- [Documentation](#-documentation)
+</div>
 
 ---
 
-## ❌ Problem Statement
+## 🎯 The Challenge
 
-Universities generate extensive sustainability-related research, but this work is often fragmented across departments, disciplines, and individuals, leading to:
+Universities generate extensive sustainability-related research, but this work is often **fragmented across departments, disciplines, and individuals**, creating critical barriers:
 
-| Challenge | Impact |
-|-----------|--------|
-| ❌ Limited visibility into existing sustainability expertise | Missed collaboration opportunities |
-| ❌ Difficulty identifying collaborators with complementary skills | Reduced innovation potential |
-| ❌ Lack of structured insights into SDG coverage | Inefficient resource allocation |
-| ❌ Manual, time-intensive processes for finding partners | Slowed research formation |
+| ❌ **Problem** | 💥 **Impact** |
+|----------------|---------------|
+| **Limited visibility** into existing sustainability expertise | Missed collaboration opportunities across departments |
+| **Difficulty identifying** collaborators with complementary skills | Reduced innovation potential and slower research formation |
+| **Lack of structured insights** into SDG coverage and gaps | Inefficient resource allocation and strategic planning |
+| **Manual, time-intensive** processes for finding partners | Slowed interdisciplinary team formation |
 
-**Result**: Opportunities for interdisciplinary collaboration and strategic sustainability initiatives are frequently missed.
+**Result**: Opportunities for impactful sustainability research and strategic initiatives are frequently missed.
 
 ---
 
-## 🏗️ Solution Architecture
+## ✨ Our Solution
 
-The platform consists of **5 integrated components** working together to address the fragmentation problem:
+The **Illinois Sustainability Impact Engine** is a **5-component integrated platform** that transforms how universities discover, connect, and leverage sustainability research expertise.
+
+### 🏗️ Platform Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -58,11 +45,13 @@ The platform consists of **5 integrated components** working together to address
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
 │  │ Sustainability│  │   Research   │  │ Collaboration│     │
 │  │   Dashboard   │  │   Coverage   │  │     Hub      │     │
+│  │  (Power BI)   │  │  (Power BI)  │  │  (Streamlit) │     │
 │  └──────────────┘  └──────────────┘  └──────────────┘     │
 │                                                               │
 │  ┌──────────────┐  ┌──────────────┐                         │
 │  │   Impact     │  │      AI      │                         │
 │  │   Engine     │  │   Prototype  │                         │
+│  │  (Power BI)  │  │ (AI Studio)  │                         │
 │  └──────────────┘  └──────────────┘                         │
 │                                                               │
 └─────────────────────────────────────────────────────────────┘
@@ -72,108 +61,141 @@ The platform consists of **5 integrated components** working together to address
 
 ## 🧩 Platform Components
 
-### 1. Sustainability Dashboard
-**Purpose**: High-level visualization of research activity across all 17 UN SDGs
+### 1. 🤖 AI Prototype
+**Natural Language Query Interface**
 
-- Overview of sustainability research coverage and trends
-- Quick identification of research strengths and gaps
-- Strategic planning support for leadership
+[**🌐 Try It Now**](https://aistudio.google.com/apps/drive/1nOrHvvhmT6JiSS_uvIfVkTRNFIb07NbI?showPreview=true&showAssistant=true)
+
+**Addresses**: Limited visibility and manual discovery processes
+
+**What it does**:
+- Ask questions about sustainability research in **plain language**
+- Get instant answers about research expertise, SDG coverage, and collaboration opportunities
+- Explore the research landscape through conversational interface
+- Powered by Google AI Studio for intelligent query understanding
+
+**Example queries**:
+- *"Who is researching climate change adaptation in the engineering department?"*
+- *"What SDGs have the least research coverage?"*
+- *"Find researchers working on renewable energy with experimental methods"*
+
+---
+
+### 2. 📊 Sustainability Dashboard
+**High-Level Research Visualization**
+
+**Addresses**: Lack of structured insights into SDG coverage
+
+**What it does**:
+- Visualizes research activity across all **17 UN SDGs**
+- Identifies research strengths and gaps at a glance
+- Provides strategic planning support for leadership
+- Tracks trends and patterns over time
 
 **Status**: Integrated in Power BI platform
 
 ---
 
-### 2. Research Coverage Analysis
-**Purpose**: Detailed analysis of research distribution, gaps, and trends
+### 3. 🔍 Research Coverage Analysis
+**Detailed Distribution & Gap Analysis**
 
+**Addresses**: Inefficient resource allocation
+
+**What it does**:
+- Analyzes research distribution across departments and SDGs
 - Identifies areas of strength and opportunities for growth
-- Department-level SDG coverage analysis
-- Trend visualization over time
+- Department-level SDG coverage breakdown
+- Trend visualization to inform strategic funding decisions
 
 **Status**: Integrated in Power BI platform
 
 ---
 
-### 3. Collaboration Hub
+### 4. 💡 Impact Engine
+**Research Impact Metrics & Sustainability Dashboard**
 
-**Compatibility scoring tool** that recommends collaborators based on:
-- **Topic alignment** (NLP semantic similarity) - 45% weight
-- **Method complementarity** (different methods score higher) - 40% weight
-- **Career stage fit** (mentorship + peer collaboration) - 15% weight
+[**🌐 View Live Dashboard**](https://prattkk11.github.io/sustainability-dashboard/)
 
-#### Key Innovation
-**Rewards complementary methods** (e.g., Theoretical + Empirical) rather than just similarity. This drives innovation by bringing together different perspectives.
+**Addresses**: Difficulty quantifying research value and lack of strategic insights
 
-#### Scoring Formula
-```
-CCS_Total = (Topic × 45%) + (Method × 40%) + (Career × 15%)
-```
-
-#### Features
-- ✅ Transparent, rule-based scoring (not predictive AI)
-- ✅ Explainable recommendations with natural language explanations
-- ✅ Streamlit web app with interactive matching
-- ✅ Complete methodology documentation
-
-#### Positioning
-**Supplementary tool**: The Collaboration Hub is a "nice-to-have" enhancement that adds compatibility scoring to help researchers find collaborators. The Sustainability Dashboard, Research Coverage Analysis, and Impact Engine work independently—the platform functions without the Hub, but it adds value when researchers want to find collaborators.
-
-#### 📚 Complete Documentation
-**See `components/collab_hub/README.md`** for:
-- **Streamlit app** - Interactive web application
-- **Methodology** - NLP formula and CCS scoring
-- **Deployment guide** - Streamlit Cloud setup
-- **Judge Q&A** - Answers to common questions
-
----
-
-### 4. Impact Engine
-**Purpose**: Research impact metrics and sustainability outcomes visualization
-
+**What it does**:
 - Quantifies research impact beyond publication count
-- Impact score calculation (journal tier, SDG alignment, recency)
-- Researcher and department impact comparisons
+- Calculates impact scores (journal tier, SDG alignment, recency)
+- Enables researcher and department impact comparisons
+- Visualizes sustainability outcomes and contributions
+- Interactive web dashboard for exploring sustainability research
 
-**Status**: Integrated in Power BI platform
-
----
-
-### 5. AI Prototype
-**Purpose**: Natural language query interface for sustainability research
-
-- Google AI Studio integration
-- Ask questions about sustainability research in plain language
-- Interactive exploration of research landscape
-
-**Status**: Prototype available
+**Status**: Live web application
 
 ---
 
-## 🚀 Getting Started
+### 5. 🤝 Collaboration Hub
+**Smart Compatibility Matching**
+
+**Addresses**: Difficulty identifying collaborators with complementary skills
+
+**What it does**:
+- **NLP-powered semantic analysis** to match research topics
+- **Rewards complementary methods** (e.g., Theoretical + Empirical) rather than just similarity
+- **Three stakeholder paths**: Faculty (collaborator matching), Students (opportunities), Donors (funding priorities)
+- **Transparent scoring**: Every recommendation is explainable
+
+**Key Innovation**: The system actively rewards **methodological complementarity**, driving innovation by bringing together different research perspectives.
+
+**Scoring Formula**:
+```
+CCS = (Topic × 45%) + (Method × 40%) + (Career × 15%)
+```
+
+**Status**: Live Streamlit web application
+
+**📚 [View Full Documentation →](components/collab_hub/)**
+
+---
+
+## 🎯 How We Address the Problem
+
+### Problem 1: Limited Visibility → **AI Prototype + Sustainability Dashboard**
+- **AI Prototype**: Natural language queries instantly surface relevant researchers and expertise
+- **Sustainability Dashboard**: Visual overview of all sustainability research activity
+
+### Problem 2: Difficulty Finding Collaborators → **Collaboration Hub**
+- **NLP semantic matching**: Finds researchers with aligned topics
+- **Method complementarity**: Matches researchers with complementary skills (key innovation)
+- **Career stage optimization**: Facilitates mentorship and peer collaboration
+
+### Problem 3: Lack of Strategic Insights → **Research Coverage Analysis + Impact Engine**
+- **Coverage Analysis**: Identifies gaps and strengths across SDGs
+- **Impact Engine**: Quantifies research value to inform resource allocation
+
+### Problem 4: Manual Processes → **All Components Working Together**
+- **AI Prototype**: Conversational discovery replaces manual searching
+- **Collaboration Hub**: Automated matching replaces manual partner identification
+- **Dashboards**: Real-time insights replace manual data compilation
+
+---
+
+## 🚀 Quick Start
 
 ### For Judges & Reviewers
 
-1. **Start Here**: Read this README for platform overview
-2. **Collaboration Hub**: See `components/collab_hub/README.md` for detailed documentation
-3. **Methodology**: Review `components/collab_hub/docs/methodology.md` for step-by-step explanation
-4. **Judge Q&A**: Check `components/collab_hub/docs/judge_qa.md` for common questions
+1. **Start Here**: This README provides the complete platform overview
+2. **Try the AI Prototype**: [Click here to explore](https://aistudio.google.com/apps/drive/1nOrHvvhmT6JiSS_uvIfVkTRNFIb07NbI?showPreview=true&showAssistant=true)
+3. **Collaboration Hub**: See `components/collab_hub/` for detailed documentation and live app
+4. **View Presentation**: See `presentation/Case Comp.pdf` for the complete submission
 
 ### For Developers
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/meryemrafiq14-hue/sustainability_case_competition.git
-   cd sustainability_case_competition
-   ```
+```bash
+# Clone the repository
+git clone https://github.com/meryemrafiq14-hue/sustainability_case_competition.git
+cd sustainability_case_competition
 
-2. **Run Streamlit App**
-   ```bash
-   cd components/collab_hub
-   pip install -r requirements.txt
-   streamlit run app.py
-   ```
-   - Opens at `http://localhost:8501`
-   - Choose your path: Faculty, Student, or Donor
+# Run Collaboration Hub Streamlit app
+cd components/collab_hub
+pip install -r requirements.txt
+streamlit run app.py
+```
 
 ---
 
@@ -181,78 +203,65 @@ CCS_Total = (Topic × 45%) + (Method × 40%) + (Career × 15%)
 
 ### Technology Stack
 
-| Technology | Purpose |
-|------------|---------|
-| **Python** | Streamlit app development |
-| **Streamlit** | Web application framework |
-| **NLP (sentence-transformers)** | Semantic similarity analysis |
-| **Pandas/NumPy** | Data manipulation and analysis |
+| Component | Technology | Purpose |
+|-----------|------------|---------|
+| **AI Prototype** | Google AI Studio | Natural language query interface |
+| **Impact Engine** | Web Dashboard | Research impact metrics and visualization |
+| **Sustainability Dashboard** | Power BI | Data visualization and analytics |
+| **Collaboration Hub** | Streamlit + Python | Interactive web application |
+| **NLP** | sentence-transformers | Semantic similarity analysis |
+| **Data Processing** | Pandas/NumPy | Data manipulation and analysis |
 
-### Collaboration Hub Pipeline
+### Data Pipeline
 
 ```
 Publications CSV (publications.csv)
     ↓
-Streamlit App (app.py)
-    ├── Load original CSV
-    ├── Build researcher profiles on-the-fly
-    ├── Perform NLP semantic analysis
-    └── Calculate compatibility scores in real-time
-    ↓
-Interactive Web Interface
-    ├── Faculty Path: CCS matching
-    ├── Student Path: Opportunity matching
-    └── Donor Path: SDG coverage analysis
+    ├──→ Power BI Dashboards (Sustainability, Coverage, Impact)
+    ├──→ AI Prototype (Google AI Studio)
+    └──→ Collaboration Hub (Streamlit App)
+         ├── Build researcher profiles on-the-fly
+         ├── Perform NLP semantic analysis
+         └── Calculate compatibility scores in real-time
 ```
-
-**See `components/collab_hub/README.md`** for detailed documentation.
 
 ---
 
 ## 📊 Data & Methodology
 
 ### Data Source
-
-- **Input**: Publications CSV (`publications.csv`)
+- **Input**: Publications CSV (`publications.csv`) provided by the case competition
 - **No external scraping**: All data comes from the provided dataset
 - **Fields used**: Author names, departments, publication years, keywords, abstracts, SDG labels
 
-### Data Policy
-
-**We do not publish raw publication data** in this repository. See `DATA_POLICY.md` for details.
-
-| Included | Excluded |
-|----------|----------|
-| ✅ Documentation of data fields and processing | ❌ Raw publication data (CSV/XLSX) |
-| ✅ Methodology and scoring logic | ❌ Power BI `.pbix` files |
-| ✅ Streamlit app code | ❌ Large data files |
-
 ### Methodology Transparency
-
-- **Rule-based system**: Not predictive AI - every score is explainable
-- **Transparent scoring**: Complete methodology documented
-- **Real data only**: All matching uses actual publication data
+- **Rule-based systems**: Transparent, explainable scoring (not black-box AI)
+- **Real data only**: All analysis uses actual publication data
 - **NLP semantic analysis**: Uses sentence-transformers on actual keywords and abstracts
+- **Complete documentation**: Every component's methodology is fully documented
+
+**See `components/collab_hub/docs/UNDER_THE_HOOD.md`** for complete technical details.
 
 ---
 
-## 💡 Impact & Insights
+## 💡 Impact & Value
 
-### Key Findings
+### Key Outcomes
 
-| Finding | Impact |
-|--------|--------|
-| ✅ Certain SDGs receive significantly more research attention | Identifies funding gaps and opportunities |
-| ✅ Collaboration opportunities exist across departments | Enables cross-disciplinary innovation |
-| ✅ Early-career researchers benefit from structured discovery | Supports mentorship and career development |
-| ✅ Data-driven insights support strategic funding decisions | Improves resource allocation |
+| Outcome | Impact |
+|---------|--------|
+| ✅ **Visibility** | Improved visibility of sustainability expertise across the institution |
+| ✅ **Efficiency** | Reduced friction in forming interdisciplinary research teams |
+| ✅ **Strategy** | Data-driven decision making for leadership and donors |
+| ✅ **Innovation** | Methodological complementarity drives cross-disciplinary breakthroughs |
+| ✅ **Culture** | Shift from passive information access to proactive insight generation |
 
-### Measurable Impact
+### Measurable Benefits
 
-- **Visibility**: Improves visibility of sustainability expertise across the institution
-- **Efficiency**: Reduces friction in forming interdisciplinary research teams
-- **Strategy**: Supports data-driven decision making for leadership and donors
-- **Culture**: Moves from passive information access to proactive insight generation
+- **Discovery Time**: Reduced from hours to seconds (AI Prototype)
+- **Match Quality**: Transparent scoring ensures explainable recommendations (Collaboration Hub)
+- **Strategic Planning**: Clear visibility into research gaps and strengths (Dashboards)
+- **Resource Allocation**: Impact metrics inform funding decisions (Impact Engine)
 
 ---
 
@@ -263,17 +272,23 @@ sustainability_case_competition/
 ├── README.md                          # This file (platform overview)
 ├── DATA_POLICY.md                     # Data confidentiality policy
 ├── publications.csv                   # Original data file
+├── presentation/                      # Competition presentation
+│   └── Case Comp.pdf
+├── screenshots/                       # Platform screenshots
+│   ├── Sustainability.png
+│   ├── Impact_engine_pro.png
+│   ├── research.png
+│   └── collabration_hub.png
 │
 └── components/
-    └── collab_hub/                   # Collaboration Hub
+    └── collab_hub/                   # Collaboration Hub component
         ├── README.md                 # Component overview
-        ├── app.py                     # Main Streamlit application
-        ├── requirements.txt           # Python dependencies
-        ├── DEPLOYMENT_GUIDE.md        # Streamlit Cloud deployment
-        └── docs/                      # Documentation
-            ├── methodology.md        # Complete methodology (NLP, CCS)
-            ├── UNDER_THE_HOOD.md     # Technical deep dive
-            ├── judge_qa.md           # Answers to judge questions
+        ├── app.py                    # Main Streamlit application
+        ├── requirements.txt          # Python dependencies
+        ├── DEPLOYMENT_GUIDE.md       # Streamlit Cloud deployment
+        └── docs/                     # Technical documentation
+            ├── UNDER_THE_HOOD.md    # Complete technical deep dive
+            ├── methodology.md        # Step-by-step methodology
             ├── limitations.md        # Known limitations
             └── QUICK_START_FOR_JUDGES.md
 ```
@@ -282,36 +297,35 @@ sustainability_case_competition/
 
 ## 📚 Documentation
 
-### Collaboration Hub Documentation
+### Collaboration Hub
+The Collaboration Hub is the only component with code in this repository. Complete documentation available in `components/collab_hub/`:
 
-**Documentation available in `components/collab_hub/`**:
+- **`README.md`** - Component overview and quick start
+- **`docs/UNDER_THE_HOOD.md`** ⭐ - Complete technical documentation (includes all Q&A)
+- **`docs/methodology.md`** - Step-by-step methodology
+- **`docs/limitations.md`** - Known limitations and future work
+- **`DEPLOYMENT_GUIDE.md`** - Streamlit Cloud deployment guide
 
-| Document | Description |
-|----------|-------------|
-| `README.md` | Component overview and quick start |
-| `docs/methodology.md` | Complete step-by-step methodology |
-| `docs/UNDER_THE_HOOD.md` | Technical deep dive: How the Streamlit app works |
-| `docs/judge_qa.md` | Answers to common judge questions |
-| `docs/limitations.md` | Known limitations and future work |
-| `docs/QUICK_START_FOR_JUDGES.md` | Quick overview for judges |
-| `DEPLOYMENT_GUIDE.md` | Streamlit Cloud deployment guide |
+### Other Components
+- **AI Prototype**: [Live on Google AI Studio](https://aistudio.google.com/apps/drive/1nOrHvvhmT6JiSS_uvIfVkTRNFIb07NbI?showPreview=true&showAssistant=true)
+- **Impact Engine**: [Live Web Dashboard](https://prattkk11.github.io/sustainability-dashboard/)
+- **Power BI Dashboards**: See presentation for screenshots and details
 
 ---
 
 ## 🎓 Skills Demonstrated
 
 ### Technical Skills
-
+- **AI/ML Integration**: Google AI Studio prototype development
 - **Web Development**: Streamlit application development
 - **NLP**: Semantic similarity analysis using sentence-transformers
+- **Data Visualization**: Power BI dashboard creation
 - **Data Analysis**: Statistical analysis and pattern recognition
 - **Algorithm Design**: Multi-factor scoring system development
-- **Python Programming**: Data processing and application development
 
 ### Business & Analytical Skills
-
 - **Problem Structuring**: Business analytics lens for complex problems
-- **Stakeholder Analysis**: Multi-user persona design
+- **Stakeholder Analysis**: Multi-user persona design (Faculty, Students, Donors)
 - **Decision Modeling**: Quantitative scoring framework development
 - **Sustainability Analytics**: UN SDG mapping and analysis
 - **Strategic Thinking**: Institutional impact assessment
@@ -321,26 +335,11 @@ sustainability_case_competition/
 ## 🔮 Future Work
 
 ### Planned Enhancements
-
-1. **Data Integration**
-   - Live publication and grant databases
-   - Real-time data updates
-   - Expanded data sources (conferences, patents, etc.)
-
-2. **Advanced Analytics**
-   - Domain-specific NLP models
-   - Network analysis for research communities
-   - Predictive analytics for collaboration success
-
-3. **Platform Features**
-   - User profiles and preferences
-   - Notification system for new matches
-   - Integration between all 5 components
-
-4. **Expansion**
-   - Beyond sustainability to other research domains
-   - Multi-institutional collaboration
-   - Industry partnership matching
+1. **Integration**: Connect all 5 components into a unified platform
+2. **Real-time Data**: Live publication and grant database integration
+3. **Advanced Analytics**: Domain-specific NLP models, network analysis
+4. **User Features**: Profiles, preferences, notification system
+5. **Expansion**: Beyond sustainability to other research domains
 
 ---
 
@@ -354,8 +353,11 @@ All data processing and analysis was performed on publicly available or anonymiz
 
 ## 📧 Contact & Links
 
+- 🤖 **[AI Prototype](https://aistudio.google.com/apps/drive/1nOrHvvhmT6JiSS_uvIfVkTRNFIb07NbI?showPreview=true&showAssistant=true)** - Try the natural language interface
+- 💡 **[Impact Engine](https://prattkk11.github.io/sustainability-dashboard/)** - View research impact dashboard
+- 🤝 **[Collaboration Hub](components/collab_hub/)** - View Streamlit app documentation
+- 📊 **[Presentation](presentation/Case%20Comp.pdf)** - Complete competition submission
 - 📧 **Questions**: Reach out through GitHub Issues
-- 🌐 **Streamlit App**: Deployed on Streamlit Cloud (see `components/collab_hub/DEPLOYMENT_GUIDE.md`)
 
 ---
 
@@ -364,5 +366,7 @@ All data processing and analysis was performed on publicly available or anonymiz
 **Built with** ❤️ **for sustainable research collaboration**
 
 _Illinois Sustainability Impact Engine - Case Competition 2025_
+
+[🌐 AI Prototype](https://aistudio.google.com/apps/drive/1nOrHvvhmT6JiSS_uvIfVkTRNFIb07NbI?showPreview=true&showAssistant=true) • [💡 Impact Engine](https://prattkk11.github.io/sustainability-dashboard/) • [🤝 Collaboration Hub](components/collab_hub/) • [📄 Presentation](presentation/Case%20Comp.pdf)
 
 </div>
