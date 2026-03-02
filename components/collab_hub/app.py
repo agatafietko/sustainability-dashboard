@@ -22,6 +22,45 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Dark theme CSS to match main site
+st.markdown("""
+<style>
+    /* Match main site dark theme */
+    .stApp {
+        background: linear-gradient(180deg, #0a1628 0%, #13294B 100%);
+    }
+    
+    /* Card styling to match main site */
+    .stContainer > div {
+        background: #1e3a5f;
+        border-radius: 12px;
+        padding: 1.5rem;
+    }
+    
+    /* Button styling */
+    .stButton > button {
+        background: #E84A27;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+    
+    .stButton > button:hover {
+        background: #c43a1f;
+    }
+    
+    /* Text colors */
+    h1, h2, h3 {
+        color: white !important;
+    }
+    
+    p, .stMarkdown {
+        color: #e0e0e0;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # Cache the model loading to avoid reloading on every interaction
 @st.cache_resource
 def load_nlp_model():
@@ -312,7 +351,7 @@ if st.session_state.selected_path is None:
     st.markdown("""
     <div style='text-align: center; padding: 2rem 0;'>
         <h1 style='color: #13294B; font-size: 3rem; margin-bottom: 0.5rem;'>Connect. Collaborate. Impact.</h1>
-        <p style='color: #FF5F00; font-size: 1.5rem; font-weight: bold;'>Sustainability Research Discovery Hub</p>
+        <p style='color: #E84A27; font-size: 1.5rem; font-weight: bold;'>Sustainability Research Discovery Hub</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -337,7 +376,7 @@ if st.session_state.selected_path is None:
     
     with col1:
         st.markdown("""
-        <div style='text-align: center; padding: 2rem; border: 2px solid #13294B; border-radius: 10px; height: 100%;'>
+        <div style='text-align: center; padding: 2rem; background: #1e3a5f; border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 10px; height: 100%;'>
             <h2 style='color: #13294B;'>🔬 Find a Collaborator</h2>
             <p style='font-size: 1.1rem; margin: 1rem 0;'><strong>Faculty / Researchers</strong></p>
             <p>I have a project; who is the best co-author for me?</p>
@@ -349,7 +388,7 @@ if st.session_state.selected_path is None:
     
     with col2:
         st.markdown("""
-        <div style='text-align: center; padding: 2rem; border: 2px solid #13294B; border-radius: 10px; height: 100%;'>
+        <div style='text-align: center; padding: 2rem; background: #1e3a5f; border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 10px; height: 100%;'>
             <h2 style='color: #13294B;'>🎓 Find Opportunities</h2>
             <p style='font-size: 1.1rem; margin: 1rem 0;'><strong>Students / Junior Faculty</strong></p>
             <p>I have skills; what project needs me?</p>
@@ -361,7 +400,7 @@ if st.session_state.selected_path is None:
     
     with col3:
         st.markdown("""
-        <div style='text-align: center; padding: 2rem; border: 2px solid #13294B; border-radius: 10px; height: 100%;'>
+        <div style='text-align: center; padding: 2rem; background: #1e3a5f; border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 10px; height: 100%;'>
             <h2 style='color: #13294B;'>💰 Sponsor a Priority</h2>
             <p style='font-size: 1.1rem; margin: 1rem 0;'><strong>Partners & Donors</strong></p>
             <p>I have money; where can I invest it to make the biggest impact?</p>
@@ -663,7 +702,7 @@ CSV files found in directories:
             
             with col_score:
                 st.markdown(f"""
-                <div style='background: linear-gradient(135deg, #13294B 0%, #FF5F00 100%); padding: 2rem; border-radius: 10px; color: white; margin-bottom: 2rem;'>
+                <div style='background: linear-gradient(135deg, #13294B 0%, #E84A27 100%); padding: 2rem; border-radius: 10px; color: white; margin-bottom: 2rem;'>
                     <h2 style='color: white; margin-bottom: 0.5rem;'>{top_match['name']}</h2>
                     <h1 style='color: white; font-size: 4rem; margin: 0;'>{top_match['total_score']:.0f}/100</h1>
                     <p style='color: white; font-size: 1.2rem; margin-top: 0.5rem;'>Collaboration Compatibility Score</p>
@@ -674,27 +713,29 @@ CSV files found in directories:
                 # Create gauge chart
                 score = top_match['total_score']
                 fig = go.Figure(go.Indicator(
-                    mode = "gauge+number+delta",
-                    value = score,
-                    domain = {'x': [0, 1], 'y': [0, 1]},
-                    title = {'text': "Match Quality"},
-                    delta = {'reference': 70},
-                    gauge = {
-                        'axis': {'range': [None, 100]},
-                        'bar': {'color': "#FF5F00"},
+                    mode="gauge+number",
+                    value=score,
+                    domain={'x': [0, 1], 'y': [0, 1]},
+                    title={'text': "Match Quality", 'font': {'size': 18, 'color': '#fff'}},
+                    number={'font': {'size': 48, 'color': '#E84A27'}},
+                    gauge={
+                        'axis': {'range': [None, 100], 'tickcolor': '#fff'},
+                        'bar': {'color': "#E84A27", 'thickness': 0.8},
+                        'bgcolor': "#1e3a5f",
+                        'borderwidth': 0,
                         'steps': [
-                            {'range': [0, 50], 'color': "lightgray"},
-                            {'range': [50, 70], 'color': "gray"},
-                            {'range': [70, 100], 'color': "#13294B"}
+                            {'range': [0, 40], 'color': "rgba(200,200,200,0.2)"},
+                            {'range': [40, 70], 'color': "rgba(100,150,200,0.3)"},
+                            {'range': [70, 100], 'color': "rgba(19,41,75,0.5)"}
                         ],
-                        'threshold': {
-                            'line': {'color': "red", 'width': 4},
-                            'thickness': 0.75,
-                            'value': 70
-                        }
                     }
                 ))
-                fig.update_layout(height=250, margin=dict(l=20, r=20, t=40, b=20))
+                fig.update_layout(
+                    height=280,
+                    margin=dict(l=10, r=10, t=50, b=10),
+                    paper_bgcolor='rgba(0,0,0,0)',
+                    font={'color': '#fff'}
+                )
                 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
             
             # Generate contextual explanations based on actual scores
@@ -940,7 +981,7 @@ elif st.session_state.selected_path == "donor":
             x=[f"SDG {i}" for i in range(1, 18)],
             y=sdg_coverage.values,
             name='Research Coverage',
-            marker_color=['#FF5F00' if i in gaps.index else '#13294B' for i in range(1, 18)],
+            marker_color=['#E84A27' if i in gaps.index else '#13294B' for i in range(1, 18)],
             text=sdg_coverage.values.astype(int),
             textposition='outside'
         ))
@@ -999,93 +1040,6 @@ elif st.session_state.selected_path == "donor":
             for idx, researcher in sdg_researchers.iterrows():
                 st.markdown(f"**{researcher.get('name', 'Unknown')}** - {researcher.get('department', 'Unknown')} ({int(researcher.get('total_publications', 0))} publications)")
 
-# ============================================
-# TRANSPARENCY / METHODOLOGY SECTION
-# ============================================
-if st.session_state.selected_path:
-    st.markdown("---")
-    with st.expander("⚙️ Under the Hood: How this works & Data Sources"):
-        st.markdown("""
-        ### Collaboration Compatibility Score (CCS) - Faculty Path
-        
-        The CCS uses a **weighted formula** to calculate compatibility:
-        
-        ```
-        CCS = (Topic × 45%) + (Method × 40%) + (Career × 15%)
-        ```
-        
-        #### Topic Score (45%) - NLP Semantic Analysis on Original Data
-        
-        We use **sentence-transformers** (`all-MiniLM-L6-v2`) to calculate semantic similarity between:
-        - Your research context (SDG + method)
-        - **Actual keywords and abstracts from the original publications CSV** (`publications.csv`)
-        
-        **Data Source**: The NLP analysis uses the actual `keywords` and `abstract` columns from the original 
-        publications CSV file. No pre-processed or simulated data is used.
-        
-        The model generates embeddings (vector representations) of the text, then calculates **cosine similarity** 
-        between your research profile and each candidate's actual research content. This similarity is scaled to 
-        0-100 to produce the Topic Score.
-        
-        **Why NLP?** This approach captures semantic meaning beyond simple keyword matching. For example, 
-        "machine learning" and "artificial intelligence" are recognized as related concepts even if the exact 
-        keywords don't match.
-        
-        **Transparency**: All matching is performed on real publication data from the original CSV file.
-        
-        #### Method Score (40%) - Complementarity Rules
-        
-        The algorithm **rewards complementary methods** rather than similarity:
-        
-        - **Theoretical + Empirical** = 100 (strong complementarity)
-        - **Theoretical + Computational** = 100 (strong complementarity)
-        - **Same method** = 50 (moderate, enables collaboration but less innovation)
-        
-        This drives innovation by bringing together different methodological perspectives.
-        
-        #### Career Score (15%) - Mentorship & Collaboration Fit
-        
-        **Why is Career weighted at 15%?** 
-        
-        We prioritize semantic research alignment and methodological fit first (85%), but apply a 15% weighting 
-        to career stages to actively foster junior-faculty mentorship and cross-seniority knowledge transfer. 
-        This ensures that while research compatibility is paramount, we also create opportunities for:
-        
-        - **Mentorship**: Pre-Tenure researchers connecting with Post-Tenure or Senior faculty
-        - **Peer Collaboration**: Researchers at similar stages working together
-        - **Knowledge Transfer**: Cross-generational research partnerships
-        
-        ### Opportunity Match Score - Student Path
-        
-        Calculated as: `(SDG Match × 50%) + (Method Match × 30%) + (Career Fit × 20%)`
-        
-        - **SDG Match**: Alignment with student's SDG interest
-        - **Method Match**: Overlap with student's skills
-        - **Career Fit**: Mentorship opportunities (students with senior faculty)
-        
-        ### Funding Gap Analysis - Donor Path
-        
-        - Calculates research coverage for each SDG (number of researchers)
-        - Identifies gaps (SDGs with coverage 30% below average)
-        - Highlights priority funding areas for maximum impact
-        
-        ### Data Sources
-        
-        - **Original CSV**: `publications.csv`
-        - **Researcher Profiles**: Built on-the-fly from original publication records (no pre-processing)
-        - **Keywords**: Extracted directly from `keywords` column in original CSV
-        - **Abstracts**: Used from `abstract` column in original CSV for NLP matching
-        - **SDG Alignment**: Based on `top 1`, `top 2`, `top 3` columns from original CSV
-        - **Career Stage**: Calculated from `publication_year` in original CSV
-        - **No Simulated Data**: All matching uses only real data from the original publications CSV
-        
-        ### Limitations & Future Work
-        
-        - Current implementation uses keyword-based semantic matching; future versions could incorporate full abstracts
-        - Method classification is rule-based; could be enhanced with ML classification
-        - Career stage is inferred from publication years; could incorporate additional signals
-        - Network effects (existing collaborations) not yet considered
-        """)
 
 # Footer
 st.markdown("---")
