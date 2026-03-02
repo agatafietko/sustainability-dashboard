@@ -37,25 +37,36 @@ The **Illinois Sustainability Impact Engine** is a **5-component integrated plat
 
 ### 🏗️ Platform Architecture
 
+The Illinois Sustainability Impact Engine integrates **5 components** that work together to transform sustainability research discovery and collaboration:
+
+<div align="center">
+
+| Component | Technology | Status |
+|-----------|------------|--------|
+| **🤖 AI Prototype** | Google AI Studio | ✅ Live |
+| **💡 Impact Engine** | Web Dashboard | ✅ Live |
+| **📊 Sustainability Dashboard** | Power BI | ✅ Integrated |
+| **🔍 Research Coverage Analysis** | Power BI | ✅ Integrated |
+| **🤝 Collaboration Hub** | Streamlit | ✅ Live |
+
+</div>
+
+**Integration Flow**:
 ```
-┌─────────────────────────────────────────────────────────────┐
-│         Illinois Sustainability Impact Engine                │
-├─────────────────────────────────────────────────────────────┤
-│                                                               │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
-│  │ Sustainability│  │   Research   │  │ Collaboration│     │
-│  │   Dashboard   │  │   Coverage   │  │     Hub      │     │
-│  │  (Power BI)   │  │  (Power BI)  │  │  (Streamlit) │     │
-│  └──────────────┘  └──────────────┘  └──────────────┘     │
-│                                                               │
-│  ┌──────────────┐  ┌──────────────┐                         │
-│  │   Impact     │  │      AI      │                         │
-│  │   Engine     │  │   Prototype  │                         │
-│  │  (Power BI)  │  │ (AI Studio)  │                         │
-│  └──────────────┘  └──────────────┘                         │
-│                                                               │
-└─────────────────────────────────────────────────────────────┘
+Publications Data (publications.csv)
+         │
+         ├──→ 🤖 AI Prototype (Natural Language Queries)
+         │
+         ├──→ 💡 Impact Engine (Research Impact Metrics)
+         │
+         ├──→ 📊 Sustainability Dashboard (SDG Overview)
+         │
+         ├──→ 🔍 Research Coverage Analysis (Gap Analysis)
+         │
+         └──→ 🤝 Collaboration Hub (Compatibility Matching)
 ```
+
+Each component addresses specific challenges while sharing the same data foundation, enabling a comprehensive view of sustainability research across the institution.
 
 ---
 
