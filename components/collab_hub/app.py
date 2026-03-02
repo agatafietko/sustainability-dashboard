@@ -376,7 +376,11 @@ if st.session_state.selected_path is None:
     
     with col1:
         st.markdown("""
+<<<<<<< HEAD
         <div style='text-align: center; padding: 2rem; background: #1e3a5f; border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 10px; height: 100%;'>
+=======
+        <div style='text-align: center; padding: 2rem; border: 2px solid #13294B; border-radius: 10px; height: 100%; min-height: 220px;'>
+>>>>>>> afdc24f5795538520b478f92170f91a918db4bcf
             <h2 style='color: #13294B;'>🔬 Find a Collaborator</h2>
             <p style='font-size: 1.1rem; margin: 1rem 0;'><strong>Faculty / Researchers</strong></p>
             <p>I have a project; who is the best co-author for me?</p>
@@ -388,7 +392,11 @@ if st.session_state.selected_path is None:
     
     with col2:
         st.markdown("""
+<<<<<<< HEAD
         <div style='text-align: center; padding: 2rem; background: #1e3a5f; border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 10px; height: 100%;'>
+=======
+        <div style='text-align: center; padding: 2rem; border: 2px solid #13294B; border-radius: 10px; height: 100%; min-height: 220px;'>
+>>>>>>> afdc24f5795538520b478f92170f91a918db4bcf
             <h2 style='color: #13294B;'>🎓 Find Opportunities</h2>
             <p style='font-size: 1.1rem; margin: 1rem 0;'><strong>Students / Junior Faculty</strong></p>
             <p>I have skills; what project needs me?</p>
@@ -400,7 +408,11 @@ if st.session_state.selected_path is None:
     
     with col3:
         st.markdown("""
+<<<<<<< HEAD
         <div style='text-align: center; padding: 2rem; background: #1e3a5f; border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 10px; height: 100%;'>
+=======
+        <div style='text-align: center; padding: 2rem; border: 2px solid #13294B; border-radius: 10px; height: 100%; min-height: 220px;'>
+>>>>>>> afdc24f5795538520b478f92170f91a918db4bcf
             <h2 style='color: #13294B;'>💰 Sponsor a Priority</h2>
             <p style='font-size: 1.1rem; margin: 1rem 0;'><strong>Partners & Donors</strong></p>
             <p>I have money; where can I invest it to make the biggest impact?</p>
