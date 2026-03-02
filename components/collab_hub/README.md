@@ -30,12 +30,12 @@ components/collab_hub/
 ├── app.py                       # Main Streamlit application
 ├── requirements.txt             # Python dependencies
 ├── DEPLOYMENT_GUIDE.md          # Streamlit Cloud deployment guide
-├── docs/                        # Documentation
-│   ├── methodology.md          # Complete methodology (NLP, CCS formula)
-│   ├── limitations.md          # Known limitations
-│   ├── judge_qa.md            # Answers to judge questions
-│   └── QUICK_START_FOR_JUDGES.md # Quick overview for judges
-└── publications.csv             # Original data (in repo root)
+└── docs/                        # Documentation
+    ├── methodology.md          # Complete methodology (NLP, CCS formula)
+    ├── UNDER_THE_HOOD.md       # Technical deep dive: How the app works
+    ├── judge_qa.md             # Answers to judge questions
+    ├── limitations.md          # Known limitations
+    └── QUICK_START_FOR_JUDGES.md # Quick overview for judges
 ```
 
 ---
@@ -64,7 +64,6 @@ components/collab_hub/
 1. **Repository**: `https://github.com/meryemrafiq14-hue/sustainability_case_competition.git`
 2. **Main file path**: `components/collab_hub/app.py`
 3. See `DEPLOYMENT_GUIDE.md` for detailed instructions
-
 
 ---
 
@@ -121,12 +120,11 @@ components/collab_hub/
 - **Profile Construction**: Built on-the-fly from original publication records
 - **NLP Analysis**: Performed on actual keywords and abstracts from original CSV
 - **No Pre-processing**: All analysis uses original data directly
-- **No Simulation**: All matching uses real data from original CSV
+- **No Simulation**: All matching uses real data from the original CSV
 
 ### Data Confidentiality
 
-- Original CSV file is **not** included in this public repo
-- App expects CSV to be in repository root or accessible path
+- Original CSV file (`publications.csv`) is included in the repository for Streamlit Cloud deployment
 - See `DATA_POLICY.md` in root directory for data policy
 
 ### Transparency
