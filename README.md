@@ -35,6 +35,14 @@ Under the hood, it runs a two-stage AI classification pipeline: LLMs handle rele
 - **Stage 2 (SDG Identification):** FAISS vector similarity search that assigns the top 3 most relevant SDGs per publication with weighted relevance scores
 - Accounts for both direct sustainability work and foundational research that supports SDG progress
 
+### Collaboration Hub
+A dedicated tab connecting Gies research gaps to external funding and partnership opportunities, embedded directly alongside the analytics.
+
+- **Sustainability Case Competition portal** embedded via iframe with full interactivity
+- **Quick-jump links** to Sponsor a Priority, SDG Gaps, Research Partnerships, and Case Competition tracks
+- **Gap-to-sponsorship mapping:** Gies' most under-indexed SDGs (14, 15, 2) surface as open sponsorship tracks in the portal
+- Context strip explains how the embedded portal connects to the dashboard's own gap analysis
+
 ### Search & Discovery
 - **Advanced Filtering:** Filter by department, year, SDG goal, and journal tier
 - **Journal Impact Tracking:** Publications cross-referenced against Financial Times and UT Dallas top-journal lists
@@ -43,6 +51,20 @@ Under the hood, it runs a two-stage AI classification pipeline: LLMs handle rele
 - **Illinois Experts API:** Pulls faculty profiles and publication metadata directly from the university's research database
 - **Web Scraping:** Rate-limited scraping for supplemental research metadata
 - **Journal Rankings Database:** Classifies publications by academic impact and business domain
+
+---
+
+## Navigation
+
+The dashboard has five tabs:
+
+| Tab | What it does |
+|---|---|
+| Overview | SDG wheel, gap index, department breakdown, AI snapshot |
+| Network | Collaboration pairings and researcher profiles |
+| Global Impact | World map, geospatial research reach, full SDG coverage |
+| **Collaboration Hub** | **Embedded Case Competition portal, sponsorship tracks, partner links** |
+| Who Uses This | Donor and student persona journeys |
 
 ---
 
@@ -112,10 +134,16 @@ No dependencies, no build process, no npm install.
 
 **Institutional Reporting:** Data for sustainability rankings, grant applications, and documenting research impact
 
+**Donors & Sponsors:** Navigate directly from SDG gap data to open sponsorship tracks via the Collaboration Hub
+
+**External Partners:** Entry point for case competition participants and research partnership inquiries
+
 ---
 
 ## Roadmap
 
+- [x] Collaboration Hub with embedded Case Competition portal
+- [x] SDG gap-to-sponsorship mapping
 - [ ] Faculty-level profiles with individual SDG breakdowns
 - [ ] Confidence score display per publication classification
 - [ ] Semantic search with natural language query support
