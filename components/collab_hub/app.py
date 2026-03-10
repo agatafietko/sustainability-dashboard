@@ -566,16 +566,6 @@ CSV files found in directories:
         """)
         st.stop()
     
-    # Show data source info
-    with st.expander("ℹ️ Data Source", expanded=False):
-        st.info(f"""
-        **Using original publications data:**
-        - Source: `publications.csv`
-        - Researchers: {len(df)} profiles built from original publication records
-        - NLP analysis performed on actual keywords and abstracts from original data
-        - No simulated or random data used
-        """)
-    
     # Wizard Questionnaire
     with st.form("faculty_form"):
         st.subheader("Tell Us About Your Research")
