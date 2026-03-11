@@ -3,16 +3,17 @@
 > **AI-powered sustainability research intelligence for the Gies College of Business, University of Illinois Urbana-Champaign**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-agatafietko.github.io-brightgreen?style=flat-square)](https://agatafietko.github.io/sustainability-dashboard/)
-[![HTML](https://img.shields.io/badge/Built%20with-HTML%2FJS-orange?style=flat-square)](#)
+[![Built With](https://img.shields.io/badge/Built%20with-React%20%2F%20HTML-orange?style=flat-square)](#)
+[![Team](https://img.shields.io/badge/Team-Silly%20Gies-blueviolet?style=flat-square)](#team)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](#license)
 
 ---
 
 ## Overview
 
-The **Gies Impact Command Center** is an analytics dashboard that tracks sustainability research contributions from Gies College of Business faculty. It maps academic publications to the United Nations' 17 Sustainable Development Goals (SDGs) and surfaces insights for academic leadership, faculty, and institutional reporting.
+The **Gies Impact Command Center** maps 2,022 Gies College of Business faculty publications (2010–2020) to the United Nations' 17 Sustainable Development Goals, surfacing research gaps, collaboration opportunities, and strategic intelligence for academic leadership, faculty, donors, and institutional partners.
 
-Under the hood, it runs a two-stage AI classification pipeline: LLMs handle relevance detection, and FAISS vector search handles SDG assignment. The frontend makes that output actually readable.
+It runs a two-stage AI classification pipeline: LLMs handle relevance detection, and FAISS vector search handles SDG assignment. The frontend makes that output immediately actionable — no 40-page PDF required.
 
 ---
 
@@ -22,56 +23,84 @@ Under the hood, it runs a two-stage AI classification pipeline: LLMs handle rele
 
 ---
 
+## Key Findings
+
+- **2,022** total indexed publications · **426** meet sustainability criteria (21.1%)
+- **15 of 17 SDGs** covered · SDG 14 and SDG 15 at zero publications
+- **+347% growth** in sustainable research output from 2010 to 2020
+- **Largest gap:** SDG 14 (Life Below Water) and SDG 15 (Life on Land) vs. ~5.7% global benchmark each
+- **Top SDGs:** SDG 3 (141 papers), SDG 10 (105), SDG 8 (87)
+- **Top researchers:** Lough (53 papers, SDG 17), Fullerton (35, SDG 13), Ahsen (29, SDG 3)
+
+---
+
 ## Features
 
 ### Hero Banner
-A full-width landing section at the top of the Overview tab, visible immediately on load.
-
-- **"Sustainability at Gies"** pill label in Illinois orange
-- **"Moving from Information to Action."** headline in navy and orange
-- Subtitle communicating the dashboard's core purpose: bridging data-driven insights with actionable solutions
+Full-width landing section at the top of the Overview tab, visible immediately on load. Includes the "Moving from Information to Action." headline, a data provenance strip linking all four sources, and an inline AI assistant panel with a pre-surfaced research insight and clickable quick prompts.
 
 ### Analytics & Visualization
-- **SDG Distribution:** Research alignment across all 17 UN Sustainable Development Goals
-- **Department Comparisons:** Sustainability contribution analysis broken down by academic department
-- **Publication Trend Analysis:** Year-over-year research output and growth rate tracking
-- **Impact KPI Cards:** Quick metrics for sustainability ratios and faculty engagement counts
+- **SDG Wheel:** Interactive radial chart mapping institutional coverage across all 17 SDGs with toggle to compare against the UN global benchmark
+- **Gap Index:** Identifies the most under-indexed SDGs relative to global averages, surfaced as actionable priority areas
+- **Department Breakdown:** Sustainability contribution analysis across Business Administration, Finance, Accountancy, and Gies Affiliates
+- **KPI Cards:** Sustainability rate, paper counts, SDG coverage, and largest gap at a glance
+- **Publication Trend Chart:** Year-over-year research output tracking from 2010 to 2020
 
 ### AI Classification Pipeline
-- **Stage 1 (Relevance Detection):** LLM-based binary classification for whether a publication contributes to any sustainability goal
-- **Stage 2 (SDG Identification):** FAISS vector similarity search that assigns the top 3 most relevant SDGs per publication with weighted relevance scores
-- Accounts for both direct sustainability work and foundational research that supports SDG progress
+The dataset was processed through a two-stage automated pipeline before appearing in the dashboard.
+
+**Stage 1 (Relevance Detection):** LLM-based binary classification determines whether each publication contributes to any sustainability goal, directly or foundationally.
+
+**Stage 2 (SDG Assignment):** FAISS vector similarity search assigns the top 3 most relevant SDGs per publication. This accounts for interdisciplinary research spanning multiple goals.
+
+All insights labeled "AI-assisted" are deterministic rules-based synthesis, not predictions.
+
+### Research Intelligence Assistant
+An inline AI assistant on the Overview tab surfaces key findings without requiring a button click. An auto-surfaced insight highlights the most significant gap in the dataset. Quick-prompt pills let users ask pre-formed questions directly, opening the full chat drawer pre-loaded.
+
+### Faculty Profiles
+Click any researcher in the Overview or Network tab to open a full profile modal showing their department, total sustainable paper count, SDG coverage (primary and secondary), research keywords sourced from the dataset, and collaboration pairings they appear in. All data is sourced from the Illinois Experts API — no fabricated bios or titles.
+
+### Collaboration Network
+- **Pairings:** Researchers sharing SDG indexing are surfaced as potential collaborators with named pairs, shared SDGs, combined paper counts, and outcome descriptions
+- **Methodology transparency:** Pairings are based on bibliometric co-indexing only. No numeric compatibility scores are assigned — predicting collaboration success requires qualitative assessment beyond this data
+- **Department nodes:** Click any department to see its suggested pairings
 
 ### Collaboration Hub
-A dedicated tab connecting Gies research gaps to external funding and partnership opportunities, embedded directly alongside the analytics.
+A dedicated tab connecting Gies research gaps to external funding and partnership opportunities.
 
-- **Sustainability Case Competition portal** embedded via iframe with full interactivity
-- **Quick-jump links** to Sponsor a Priority, SDG Gaps, Research Partnerships, and Case Competition tracks
-- **Gap-to-sponsorship mapping:** Gies' most under-indexed SDGs (14, 15, 2) surface as open sponsorship tracks in the portal
+- Sustainability Case Competition portal embedded via iframe with full interactivity
+- Quick-jump links to Sponsor a Priority, SDG Gaps, Research Partnerships, and Case Competition tracks
+- Gap-to-sponsorship mapping: SDGs 14, 15, and 2 (Gies' most under-indexed) surface as open sponsorship tracks
 - Context strip explains how the embedded portal connects to the dashboard's own gap analysis
 
-### Search & Discovery
-- **Advanced Filtering:** Filter by department, year, SDG goal, and journal tier
-- **Journal Impact Tracking:** Publications cross-referenced against Financial Times and UT Dallas top-journal lists
+### User Journey Maps
+The "Who Uses This" tab contains full visual journey maps for two primary personas: Eleanor (University Donor, age 58) and Marcus (Student Researcher, age 22). Each map includes a before/after comparison showing how the dashboard improves on the status quo, a 5-step journey with emotion labels per stage, features used, time-to-value, and a plain-language improvement summary.
 
-### Data Sources
-- **Illinois Experts API:** Pulls faculty profiles and publication metadata directly from the university's research database
-- **Web Scraping:** Rate-limited scraping for supplemental research metadata
-- **Journal Rankings Database:** Classifies publications by academic impact and business domain
+---
+
+## Data Sources
+
+| Source | Role |
+|---|---|
+| Illinois Experts API (Elsevier) | Faculty profiles and publication metadata |
+| Elsevier Scopus | Bibliometric indexing and DOI resolution |
+| UN SDG 2023 Report | Global benchmark distribution (normalized) |
+| FT50 / UTD24 Journal Lists | Journal quality classification |
+
+Full methodology is accessible via the "Methodology" link in the dashboard footer.
 
 ---
 
 ## Navigation
 
-The dashboard has five tabs:
-
-| Tab | What it does |
+| Tab | Contents |
 |---|---|
-| Overview | Hero banner, SDG wheel, gap index, department breakdown, AI snapshot |
-| Network | Collaboration pairings and researcher profiles |
-| Global Impact | World map, geospatial research reach, full SDG coverage |
-| **Collaboration Hub** | **Embedded Case Competition portal, sponsorship tracks, partner links** |
-| Who Uses This | Donor and student persona journeys |
+| Overview | Hero banner, data provenance, AI assistant, KPI cards, SDG wheel, gap index, department breakdown, keyword cloud, AI snapshot |
+| Network | Collaboration pairings by department, researcher nodes, faculty grid, methodology note |
+| Global Impact | World map, geospatial research reach, full SDG coverage by region |
+| Collaboration Hub | Embedded Case Competition portal, SDG gap-to-sponsorship mapping, partner links |
+| Who Uses This | Visual journey maps for Donor and Student personas |
 
 ---
 
@@ -79,23 +108,12 @@ The dashboard has five tabs:
 
 | Layer | Technology |
 |---|---|
-| Frontend | React (single-file, GitHub Pages hosted) |
-| AI Classification | OpenAI GPT models |
-| Vector Search | FAISS + Pinecone |
-| Data Pipeline | Python |
+| Frontend | React (single-file, CDN-loaded, no build step) |
+| AI Classification | LLM-based binary relevance detection (Stage 1) |
+| Vector Search | FAISS — top-3 SDG assignment per publication (Stage 2) |
+| Data Pipeline | Python, Illinois Experts API, rate-limited scraping |
+| Collaboration Hub | Streamlit iframe embed |
 | Deployment | GitHub Pages |
-
----
-
-## Data Architecture
-
-The backend pipeline structures data across three layers:
-
-**Faculty Records:** identifiers, department affiliations, active status, research keyword profiles
-
-**Publication Database:** article metadata, DOIs, journal classifications, sustainability scores, SDG mappings
-
-**Sustainability Analytics:** binary sustainability flags, ranked SDG assignments (top 3 per publication), temporal trends, department-level aggregations
 
 ---
 
@@ -103,11 +121,11 @@ The backend pipeline structures data across three layers:
 
 ```
 sustainability-dashboard/
-├── index.html        # Single-file React dashboard (all components, styles, and logic)
+├── index.html        # Single-file React dashboard — all components, styles, and logic
 └── .gitignore
 ```
 
-Everything lives in `index.html`. No build step required.
+Everything lives in `index.html`. No dependencies, no build process, no npm install.
 
 ---
 
@@ -115,47 +133,41 @@ Everything lives in `index.html`. No build step required.
 
 ### View Locally
 
-Clone the repo and open `index.html` in a browser:
-
 ```bash
 git clone https://github.com/agatafietko/sustainability-dashboard.git
 cd sustainability-dashboard
 open index.html
 ```
 
-No dependencies, no build process, no npm install.
-
 ### Deploy to GitHub Pages
 
 1. Go to **Settings > Pages** in your forked repo
 2. Set source to `main` branch, `/ (root)`
-3. Your dashboard will be live at `https://<your-username>.github.io/sustainability-dashboard/`
+3. Live at `https://<your-username>.github.io/sustainability-dashboard/`
 
 ---
 
-## Use Cases
+## Team
 
-**Academic Leadership:** Insights for sustainability planning, metrics for accreditation reporting, identification of emerging research strengths
+**Silly Gies** — Gies College of Business, University of Illinois Urbana-Champaign
 
-**Faculty:** Visibility into SDG contributions and potential collaborators working on related goals
-
-**Institutional Reporting:** Data for sustainability rankings, grant applications, and documenting research impact
-
-**Donors & Sponsors:** Navigate directly from SDG gap data to open sponsorship tracks via the Collaboration Hub
-
-**External Partners:** Entry point for case competition participants and research partnership inquiries
+Agata Fietko · Yuri Chen · Meryem Hassan Rafiq · Yuliia Koreiba · Prateek Verma
 
 ---
 
 ## Roadmap
 
+- [x] Two-stage AI classification pipeline (LLM + FAISS)
+- [x] Interactive SDG wheel with global benchmark toggle
+- [x] Hero banner with inline data provenance
+- [x] Research Intelligence Assistant with auto-surfaced insights
+- [x] Faculty profile modals (verified data only)
 - [x] Collaboration Hub with embedded Case Competition portal
 - [x] SDG gap-to-sponsorship mapping
-- [x] Hero banner on Overview tab ("Moving from Information to Action.")
-- [ ] Faculty-level profiles with individual SDG breakdowns
+- [x] Visual user journey maps (Donor + Student personas)
 - [ ] Confidence score display per publication classification
-- [ ] Semantic search with natural language query support
-- [ ] Research similarity recommendations for collaboration discovery
+- [ ] Semantic / natural language search
+- [ ] Research similarity recommendations
 - [ ] Year-over-year growth rate callouts on trend charts
 - [ ] Data freshness timestamps and source attribution
 
