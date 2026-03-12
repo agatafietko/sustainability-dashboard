@@ -29,13 +29,10 @@ components/collab_hub/
 ├── README.md                    # This file
 ├── app.py                       # Main Streamlit application
 ├── requirements.txt             # Python dependencies
-├── DEPLOYMENT_GUIDE.md          # Streamlit Cloud deployment guide
 └── docs/                        # Documentation
-    ├── methodology.md          # Complete methodology (NLP, CCS formula)
-    ├── UNDER_THE_HOOD.md       # Technical deep dive: How the app works
-    ├── judge_qa.md             # Answers to judge questions
-    ├── limitations.md          # Known limitations
-    └── QUICK_START_FOR_JUDGES.md # Quick overview for judges
+    └── UNDER_THE_HOOD.md       # Complete technical documentation (NLP, CCS formula, judge Q&A)
+
+publications.csv                 # Data file (in repository root)
 ```
 
 ---
@@ -63,7 +60,7 @@ components/collab_hub/
 
 1. **Repository**: `https://github.com/meryemrafiq14-hue/sustainability_case_competition.git`
 2. **Main file path**: `components/collab_hub/app.py`
-3. See `DEPLOYMENT_GUIDE.md` for detailed instructions
+3. Ensure `publications.csv` is in the repository root directory
 
 ---
 
@@ -97,18 +94,17 @@ components/collab_hub/
 
 ## 📖 Documentation
 
-### Essential Reading
-- **`DEPLOYMENT_GUIDE.md`** - Streamlit Cloud deployment instructions
-- **`docs/QUICK_START_FOR_JUDGES.md`** - Quick overview for judges
+### Complete Technical Documentation
+- **`docs/UNDER_THE_HOOD.md`** ⭐ - Complete technical documentation including:
+  - NLP methodology and CCS scoring formula
+  - Weight justification (45/40/15)
+  - Data sources and processing
+  - Technical implementation details
+  - Judge Q&A and frequently asked questions
+  - Limitations and future work
 
-### Detailed Documentation
-- **`docs/methodology.md`** - Complete methodology (NLP formula, CCS scoring)
-- **`docs/UNDER_THE_HOOD.md`** ⭐ - Technical deep dive: How the Streamlit app works
-- **`docs/judge_qa.md`** - Answers to common judge questions
-- **`docs/limitations.md`** - Known limitations and future work
-
-### Technical Documentation
-- **`app.py`** - Main Streamlit application (commented code)
+### Code
+- **`app.py`** - Main Streamlit application (fully commented)
 
 ---
 
@@ -125,7 +121,6 @@ components/collab_hub/
 ### Data Confidentiality
 
 - Original CSV file (`publications.csv`) is included in the repository for Streamlit Cloud deployment
-- See `DATA_POLICY.md` in root directory for data policy
 
 ### Transparency
 
@@ -143,7 +138,7 @@ This is a **rule-based system with NLP**, not predictive AI. Every score is expl
 4. **Real data only**: The app uses only real data from the original publications CSV
 5. **Part of larger platform**: This is one of 5 components in the Sustainability Impact Engine
 
-See `docs/judge_qa.md` for detailed answers to common questions.
+See `docs/UNDER_THE_HOOD.md` for detailed answers to common questions and complete technical documentation.
 
 ---
 
@@ -156,13 +151,13 @@ The Collaboration Hub integrates with other platform components:
 - **Impact Engine**: Measures impact of collaborations
 - **AI Prototype**: Natural language interface for finding collaborators
 
-See the main repository `README.md` for the complete platform overview.
+This component is part of the Illinois Sustainability Impact Engine platform.
 
 ---
 
 ## 📧 Contact
 
-For questions about the Collaboration Hub methodology, see the documentation in `docs/` or refer to the main case competition repository README.
+For questions about the Collaboration Hub methodology, see `docs/UNDER_THE_HOOD.md` for complete technical documentation.
 
 ---
 
