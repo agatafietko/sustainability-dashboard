@@ -2,6 +2,8 @@
 
 > **Component of the Illinois Sustainability Impact Engine**
 
+> **Merged from**: [`meryemrafiq14-hue/sustainability_case_competition`](https://github.com/meryemrafiq14-hue/sustainability_case_competition)
+
 The Collaboration Hub is one of 5 integrated components in the Sustainability Impact Engine. It is a compatibility scoring tool that recommends research collaborators based on topic alignment, method complementarity, and career stage fit. It enhances the platform by adding a compatibility layer, working alongside the Sustainability Dashboard, Research Coverage Analysis, Impact Engine, and AI Prototype.
 
 ## 🎯 Quick Overview
@@ -155,10 +157,10 @@ This component is part of the Illinois Sustainability Impact Engine platform.
 
 ---
 
-## 📧 Contact
+## 📜 Provenance
 
-For questions about the Collaboration Hub methodology, see `docs/UNDER_THE_HOOD.md` for complete technical documentation.
+This component was merged from the original repository [`meryemrafiq14-hue/sustainability_case_competition`](https://github.com/meryemrafiq14-hue/sustainability_case_competition). The source repository remains the authoritative origin of this codebase.
 
 ---
 
-**Built for the Illinois Sustainability Impact Engine Case Competition**
+## 📧 Contact
