@@ -1,6 +1,7 @@
 # Gies Impact Command Center
 
 **Built by Team Silly Gies** — Agata Fietko, Yuri Chen, Meryem Hassan Rafiq, Yuliia Koreiba, Prateek Verma
+
 Gies College of Business, University of Illinois Urbana-Champaign
 
 Forked from [prattkk11/sustainability-dashboard](https://github.com/prattkk11/sustainability-dashboard) and extended for the Gies Sustainability Case Competition.
