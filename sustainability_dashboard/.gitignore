@@ -1,0 +1,57 @@
+# Data files (sensitive - do not commit)
+# Exception: publications.csv (needed for Streamlit Cloud)
+!publications.csv
+*.csv
+*.xlsx
+*.xls
+*.pbix
+*.pbids
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Power BI
+*.pbix
+*.pbids
+
+# Large files
+*.zip
+*.tar.gz
+
+# Personal notes (if any)
+notes.txt
+TODO.txt
+
+# No CSV files should be committed (all contain data)
+# Remove any exceptions - all data files are confidential
